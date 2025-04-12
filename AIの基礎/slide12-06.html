@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成AI活用入門 (大学生向け) - 注意点とまとめ</title> <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+     <style>
+        body { margin: 0; padding: 0; font-family: 'M PLUS Rounded 1c', sans-serif; background-color: #f0f9ff; overflow: auto; }
+        .slide { width: 1280px; min-height: 720px; margin: 0 auto; position: relative; overflow: auto; background: linear-gradient(135deg, #f5f5f5 0%, #e5e5e5 100%); /* Gray Gradient */ box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-radius: 12px; padding: 40px; display: flex; flex-direction: column; }
+        .caution-card { background: white; border-left: 5px solid #f87171; padding: 15px; margin-bottom: 15px; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .caution-title { color: #dc2626; font-weight: bold; margin-bottom: 5px; }
+        .summary-box { background-color: #dcfce7; border: 1px solid #86efac; border-radius: 8px; padding: 20px; text-align: center; }
+    </style>
+</head>
+<body>
+     <div class="slide flex flex-col">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-4xl font-bold text-gray-800">生成AI利用上の注意点とまとめ</h1> <i class="fas fa-exclamation-triangle text-yellow-500 text-5xl"></i>
+        </div>
+
+        <div class="flex-grow flex flex-col items-center justify-center">
+             <p class="text-xl text-center text-gray-700 mb-8">
+                生成AIは非常に強力なツールですが、利用にあたっては以下の点に注意しましょう。
+            </p>
+
+            <div class="w-full max-w-3xl mb-8">
+                <h2 class="text-2xl font-bold text-center text-red-700 mb-4"><i class="fas fa-shield-alt mr-2"></i>利用する上での重要事項</h2>
+
+                 <div class="caution-card">
+                     <p class="caution-title"><i class="fas fa-question-circle mr-1"></i>情報の正確性は保証されない</p>
+                     <p class="text-sm text-gray-700">AIはもっともらしい嘘（ハルシネーション）をつくことがあります。生成された情報は鵜呑みにせず、<span class="font-bold">必ず一次情報や信頼できる情報源でファクトチェック</span>を行う習慣をつけましょう。特にレポートや論文では致命的です。</p>
+                 </div>
+
+                 <div class="caution-card">
+                     <p class="caution-title"><i class="fas fa-lock mr-1"></i>機密情報・個人情報は入力しない</p>
+                     <p class="text-sm text-gray-700">未発表の研究データ、企業の内部情報、自分や他人の個人情報などは<span class="font-bold">絶対に入力しないでください</span>。情報漏洩のリスクや、AIの学習データに利用される可能性があります。</p>
+                 </div>
+
+                <div class="caution-card">
+                     <p class="caution-title"><i class="fas fa-user-edit mr-1"></i>課題の丸投げは学術不正！</p> <p class="text-sm text-gray-700">レポートや課題をAIに作成させてそのまま提出することは、<span class="font-bold">剽窃や学術不正</span>にあたります。アイデア出し、構成案作成、表現の洗練などの<span class="font-bold">「補助」</span>として利用し、最終的な成果物は必ず自分の思考と判断に基づいて作成しましょう。</p>
+                 </div>
+
+                 <div class="caution-card">
+                     <p class="caution-title"><i class="fas fa-copyright mr-1"></i>著作権・利用規約を確認</p>
+                     <p class="text-sm text-gray-700">生成された文章や画像の著作権の扱いは、利用するAIツールや国・地域によって異なります。商用利用や公開を行う場合は、<span class="font-bold">各サービスの利用規約を必ず確認</span>し、著作権法を遵守しましょう。</p>
+                 </div>
+            </div>
+
+            <div class="summary-box max-w-3xl w-full">
+                 <h2 class="text-2xl font-bold text-green-800 mb-3"><i class="fas fa-check-circle mr-2"></i>まとめ：責任あるAI活用を！</h2> <p class="text-gray-700">
+                     生成AIは、使い方次第で<span class="font-bold">学習や研究、創造活動の可能性を大きく広げる</span>ツールです。<br>
+                     今回紹介したツールなどを活用し、その能力を体験してみてください。<br>
+                     ただし、その力を<span class="font-bold">責任を持って、倫理的に利用する</span>ことが不可欠です。<br>
+                     常に<span class="font-bold">批判的思考（クリティカルシンキング）</span>を持ち、AIを<span class="font-bold">「賢いアシスタント」</span>として上手に付き合っていきましょう！
+                 </p>
+            </div>
+
+        </div>
+
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">14-6 / 20</span>
+        </div>
+    </div>
+</body>
+</html>

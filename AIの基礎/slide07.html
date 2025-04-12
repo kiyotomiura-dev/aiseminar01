@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIの基礎 (中高生向け) - ディープラーニングってなに？</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            /* フォントファミリーの指定例 */
+            font-family: 'M PLUS Rounded 1c', sans-serif;
+            background-color: #f0f9ff;
+            /* スライド全体が見えるように overflow: hidden を削除 */
+            /* overflow: auto; */
+        }
+        .slide {
+            width: 1280px; /* 固定幅 */
+            min-height: 720px; /* 固定高さ */
+            margin: 20px auto; /* 上下にマージンを追加 */
+            position: relative;
+            overflow: auto;
+            background: linear-gradient(135deg, #e0f7fa 0%, #bbdefb 100%);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            padding: 40px;
+            box-sizing: border-box; /* paddingを含めたサイズ計算 */
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .float-animation {
+            animation: float 4s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .pulse-animation {
+            animation: pulse 3s ease-in-out infinite;
+        }
+        .brain-node {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            position: relative; /* JavaScriptでの位置取得のため */
+            z-index: 2; /* 線より手前に表示 */
+            background-clip: padding-box; /* 背景色がボーダーからはみ出ないように */
+        }
+        .network-container {
+            position: relative;
+            /* SVG描画エリアの高さを確保 */
+            height: 300px; /* 必要に応じて調整 */
+        }
+        /* SVG線スタイル */
+        #network-svg line {
+            stroke: rgba(107, 114, 128, 0.6); /* 線の色と透明度 */
+            stroke-width: 1.5; /* 線の太さ */
+        }
+        .layer-label {
+            position: absolute;
+            bottom: 0; /* コンテナの下部に配置 */
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            font-size: 0.875rem; /* text-sm */
+            color: #4b5563; /* text-gray-700 */
+            margin-top: 0.5rem; /* mt-2 */
+             white-space: nowrap; /* 改行を防ぐ */
+        }
+
+        /* レイヤーの水平位置を調整（Tailwindのカスタムクラスの代わり）*/
+        .layer-input { left: 10%; }
+        .layer-hidden1 { left: 35%; }
+        .layer-hidden2 { left: 60%; }
+        .layer-output { left: 85%; }
+
+    </style>
+</head>
+<body>
+    <div class="slide flex flex-col">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-4xl font-bold text-indigo-800">ディープラーニングってなに？</h1>
+            <div class="float-animation">
+                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9e0.svg" alt="Brain emoji" class="w-16 h-16">
+            </div>
+        </div>
+
+        <div class="bg-white bg-opacity-70 rounded-xl p-3 mb-6 max-w-xl mx-auto text-center">
+            <p class="text-xl text-gray-700">人間の脳をまねした AI の超強力な学習方法！</p>
+        </div>
+
+        <div class="flex justify-between mb-6">
+             <div class="w-1/2 px-6">
+                 <div class="bg-pink-50 rounded-xl p-4 text-center mb-4">
+                     <h3 class="text-xl font-bold text-pink-700">人間の脳</h3>
+                 </div>
+                 <div class="flex justify-center mb-4">
+                     <div class="float-animation">
+                         <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f468.svg" alt="Human emoji" class="w-32 h-32">
+                     </div>
+                 </div>
+                 <div class="bg-white rounded-xl p-4 shadow-md">
+                     <ul class="space-y-2">
+                         <li class="flex items-start">
+                             <div class="bg-pink-100 rounded-full p-1 mr-2 flex-shrink-0 mt-1">
+                                 <i class="fas fa-check text-pink-600 text-xs"></i>
+                             </div>
+                             <p class="text-gray-700">脳細胞（ニューロン）が連携して働く</p>
+                         </li>
+                         <li class="flex items-start">
+                             <div class="bg-pink-100 rounded-full p-1 mr-2 flex-shrink-0 mt-1">
+                                 <i class="fas fa-check text-pink-600 text-xs"></i>
+                             </div>
+                             <p class="text-gray-700">経験から学び、パターンを認識する</p>
+                         </li>
+                         <li class="flex items-start">
+                             <div class="bg-pink-100 rounded-full p-1 mr-2 flex-shrink-0 mt-1">
+                                 <i class="fas fa-check text-pink-600 text-xs"></i>
+                             </div>
+                             <p class="text-gray-700">思考・記憶・学習ができる</p>
+                         </li>
+                     </ul>
+                 </div>
+             </div>
+
+             <div class="w-1/2 px-6">
+                 <div class="bg-blue-50 rounded-xl p-4 text-center mb-4">
+                     <h3 class="text-xl font-bold text-blue-700">ニューラルネットワーク</h3>
+                 </div>
+                 <div class="flex justify-center mb-4">
+                     <div class="float-animation">
+                         <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f916.svg" alt="Robot emoji" class="w-32 h-32">
+                     </div>
+                 </div>
+                 <div class="bg-white rounded-xl p-4 shadow-md">
+                     <ul class="space-y-2">
+                         <li class="flex items-start">
+                             <div class="bg-blue-100 rounded-full p-1 mr-2 flex-shrink-0 mt-1">
+                                 <i class="fas fa-check text-blue-600 text-xs"></i>
+                             </div>
+                             <p class="text-gray-700">人工的なニューロンが連携して働く</p>
+                         </li>
+                         <li class="flex items-start">
+                             <div class="bg-blue-100 rounded-full p-1 mr-2 flex-shrink-0 mt-1">
+                                 <i class="fas fa-check text-blue-600 text-xs"></i>
+                             </div>
+                             <p class="text-gray-700">大量のデータからパターンを学習する</p>
+                         </li>
+                         <li class="flex items-start">
+                             <div class="bg-blue-100 rounded-full p-1 mr-2 flex-shrink-0 mt-1">
+                                 <i class="fas fa-check text-blue-600 text-xs"></i>
+                             </div>
+                             <p class="text-gray-700">複雑な問題を解決できる</p>
+                         </li>
+                     </ul>
+                 </div>
+             </div>
+        </div>
+
+        <div class="bg-indigo-50 rounded-xl p-5 mb-4 relative">
+            <h3 class="text-xl font-bold text-indigo-800 text-center mb-3">ニューラルネットワークのイメージ</h3>
+
+            <div class="network-container relative">
+                <svg id="network-svg" width="100%" height="100%" style="position: absolute; top: 0; left: 0; z-index: 1; pointer-events: none;"></svg>
+
+                <div class="relative w-full h-full">
+                     <div class="absolute top-0 h-full flex flex-col items-center justify-around layer-input">
+                        <div class="brain-node bg-green-200" id="input1">
+                            <i class="fas fa-arrow-right text-green-700"></i>
+                        </div>
+                        <div class="brain-node bg-green-200" id="input2">
+                            <i class="fas fa-arrow-right text-green-700"></i>
+                        </div>
+                        <div class="brain-node bg-green-200" id="input3">
+                            <i class="fas fa-arrow-right text-green-700"></i>
+                        </div>
+                        <div class="layer-label">入力層</div>
+                    </div>
+
+                    <div class="absolute top-0 h-full flex flex-col items-center justify-around layer-hidden1">
+                        <div class="brain-node bg-blue-200" id="hidden1_1">
+                            <i class="fas fa-cog text-blue-700"></i>
+                        </div>
+                        <div class="brain-node bg-blue-200" id="hidden1_2">
+                            <i class="fas fa-cog text-blue-700"></i>
+                        </div>
+                        <div class="brain-node bg-blue-200" id="hidden1_3">
+                            <i class="fas fa-cog text-blue-700"></i>
+                        </div>
+                        <div class="brain-node bg-blue-200" id="hidden1_4">
+                            <i class="fas fa-cog text-blue-700"></i>
+                        </div>
+                         <div class="layer-label">隠れ層1</div>
+                    </div>
+
+                    <div class="absolute top-0 h-full flex flex-col items-center justify-around layer-hidden2">
+                        <div class="brain-node bg-purple-200" id="hidden2_1">
+                            <i class="fas fa-cog text-purple-700"></i>
+                        </div>
+                        <div class="brain-node bg-purple-200" id="hidden2_2">
+                            <i class="fas fa-cog text-purple-700"></i>
+                        </div>
+                        <div class="brain-node bg-purple-200" id="hidden2_3">
+                            <i class="fas fa-cog text-purple-700"></i>
+                        </div>
+                         <div class="layer-label">隠れ層2</div>
+                    </div>
+
+                    <div class="absolute top-0 h-full flex flex-col items-center justify-around layer-output">
+                        <div class="brain-node bg-red-200" id="output1">
+                            <i class="fas fa-flag-checkered text-red-700"></i>
+                        </div>
+                        <div class="brain-node bg-red-200" id="output2">
+                            <i class="fas fa-flag-checkered text-red-700"></i>
+                        </div>
+                         <div class="layer-label">出力層</div>
+                    </div>
+                </div>
+                </div>
+        </div>
+
+        <div class="bg-white bg-opacity-70 rounded-xl p-4">
+             <h3 class="text-lg font-bold text-indigo-800 mb-3 text-center">ディープラーニングができること</h3>
+             <div class="flex justify-around">
+                 <div class="text-center">
+                     <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f5bc.svg" alt="Art emoji" class="w-12 h-12 mx-auto mb-1">
+                     <p class="text-sm text-gray-700">画像認識・生成</p>
+                 </div>
+                 <div class="text-center">
+                     <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4ac.svg" alt="Speech bubble emoji" class="w-12 h-12 mx-auto mb-1">
+                     <p class="text-sm text-gray-700">自然言語処理</p>
+                 </div>
+                 <div class="text-center">
+                     <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f399.svg" alt="Microphone emoji" class="w-12 h-12 mx-auto mb-1">
+                     <p class="text-sm text-gray-700">音声認識・合成</p>
+                 </div>
+                 <div class="text-center">
+                     <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3ae.svg" alt="Game controller emoji" class="w-12 h-12 mx-auto mb-1">
+                     <p class="text-sm text-gray-700">ゲームAI</p>
+                 </div>
+                 <div class="text-center">
+                     <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f697.svg" alt="Car emoji" class="w-12 h-12 mx-auto mb-1">
+                     <p class="text-sm text-gray-700">自動運転</p>
+                 </div>
+             </div>
+         </div>
+
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">7 / 20</span>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const svg = document.getElementById('network-svg');
+            const container = document.querySelector('.network-container'); // Changed selector
+            if (!svg || !container) {
+                console.error("SVG container or network container not found.");
+                return;
+            }
+
+            // ノードのIDリスト
+            const layers = [
+                ['input1', 'input2', 'input3'],
+                ['hidden1_1', 'hidden1_2', 'hidden1_3', 'hidden1_4'],
+                ['hidden2_1', 'hidden2_2', 'hidden2_3'],
+                ['output1', 'output2']
+            ];
+
+            // コンテナの基準位置を取得
+            const containerRect = container.getBoundingClientRect();
+
+            // 各ノードの中心座標を取得する関数
+            const getNodeCenter = (nodeId) => {
+                const node = document.getElementById(nodeId);
+                if (!node) return null;
+                const rect = node.getBoundingClientRect();
+                // コンテナ基準の相対座標に変換
+                const x = rect.left - containerRect.left + rect.width / 2;
+                const y = rect.top - containerRect.top + rect.height / 2;
+                return { x, y };
+            };
+
+            // 線を描画する関数
+            const drawLine = (startNodeId, endNodeId) => {
+                const start = getNodeCenter(startNodeId);
+                const end = getNodeCenter(endNodeId);
+
+                if (start && end) {
+                    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    line.setAttribute('x1', start.x);
+                    line.setAttribute('y1', start.y);
+                    line.setAttribute('x2', end.x);
+                    line.setAttribute('y2', end.y);
+                    // スタイルはCSSで指定 (#network-svg line)
+                    svg.appendChild(line);
+                } else {
+                    console.warn(`Could not draw line between ${startNodeId} and ${endNodeId}. Node not found.`);
+                }
+            };
+
+            // 全結合の線を描画
+            for (let i = 0; i < layers.length - 1; i++) {
+                const currentLayer = layers[i];
+                const nextLayer = layers[i+1];
+                currentLayer.forEach(startNodeId => {
+                    nextLayer.forEach(endNodeId => {
+                        drawLine(startNodeId, endNodeId);
+                    });
+                });
+            }
+
+            // リサイズ時に再描画（オプション）
+             let resizeTimeout;
+             window.addEventListener('resize', () => {
+                 // debounce resize event
+                 clearTimeout(resizeTimeout);
+                 resizeTimeout = setTimeout(() => {
+                     // SVG内の線をクリア
+                     while (svg.firstChild) {
+                         svg.removeChild(svg.firstChild);
+                     }
+                      // コンテナの基準位置を再取得 (重要)
+                      const updatedContainerRect = container.getBoundingClientRect();
+                      containerRect.left = updatedContainerRect.left;
+                      containerRect.top = updatedContainerRect.top;
+
+                     // 再描画
+                     for (let i = 0; i < layers.length - 1; i++) {
+                         const currentLayer = layers[i];
+                         const nextLayer = layers[i+1];
+                         currentLayer.forEach(startNodeId => {
+                             nextLayer.forEach(endNodeId => {
+                                 drawLine(startNodeId, endNodeId);
+                             });
+                         });
+                     }
+                 }, 250); // 250ms待ってから再描画
+             });
+        });
+    </script>
+
+</body>
+</html>

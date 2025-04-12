@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transformerの仕組み③ (中高生向け) - デコーダー</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; font-family: 'M PLUS Rounded 1c', sans-serif; background-color: #f0f9ff; overflow: auto; }
+        .slide { width: 1280px; min-height: 720px; margin: 0 auto; position: relative; overflow: auto; background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); /* Green Gradient */ box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-radius: 12px; padding: 40px; display: flex; flex-direction: column; }
+        .decoder-block { border: 3px solid #a855f7; /* Purple-600 */ border-radius: 10px; padding: 20px; background: rgba(243, 232, 255, 0.7); /* Purple-100 with transparency */ width: 90%; margin: 0 auto; }
+        .component-box { background: white; border: 1px solid #d8b4fe; /* Purple-300 */ border-radius: 6px; padding: 8px 10px; margin-bottom: 10px; /* Margin調整 */ text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .arrow { font-size: 1.3rem; /* サイズ調整 */ color: #c084fc; /* Purple-400 */ margin: 3px 0; }
+        .highlight { background-color: #a7f3d0; padding: 2px 5px; border-radius: 3px; font-weight: bold; }
+        .encoder-output { border: 2px dashed #3b82f6; padding: 5px; border-radius: 4px; background-color: #eff6ff; color: #3b82f6; font-size: 0.8rem; font-weight: bold; display: inline-block; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <div class="slide">
+         <div class="flex justify-between items-center mb-4"> <h1 class="text-4xl font-bold text-green-800">Transformerの心臓部②：デコーダー<br>〜文を組み立てる仕組み〜</h1>
+            <i class="fas fa-pencil-alt text-purple-600 text-5xl"></i> </div>
+
+        <div class="flex-grow flex flex-col items-center justify-center">
+             <p class="text-xl text-center text-gray-700 mb-4">
+                デコーダーは、エンコーダーが理解した<span class="highlight text-green-900">「文の意味」</span>と、<span class="highlight text-green-900">「自分が既に出力した言葉」</span>をヒントに、次に来る言葉を予測して文章を生成していくよ！
+            </p>
+
+            <div class="decoder-block">
+                 <p class="text-center font-bold text-purple-700 mb-2">デコーダーの内部 (例: 「Cats」の次に来る単語を予測)</p>
+
+                 <div class="text-center mb-2">
+                     <span class="encoder-output">エンコーダーからの意味情報</span>
+                     <p class="font-semibold text-sm">前の出力: 「Cats」</p>
+                </div>
+                 <div class="flex justify-center"><i class="fas fa-arrow-down arrow"></i></div>
+
+                 <div class="component-box max-w-md mx-auto">
+                    <p class="font-bold text-purple-700">① 前の言葉のIDカード作成 + 順番情報追加</p>
+                    <p class="text-xs text-gray-600">(出力埋め込み + 位置エンコーディング)</p>
+                    <p class="text-sm mt-1">「Cats」をベクトルに変換し、順番情報も加える。</p>
+                </div>
+                <div class="flex justify-center"><i class="fas fa-arrow-down arrow"></i></div>
+
+                 <div class="component-box max-w-md mx-auto">
+                    <p class="font-bold text-purple-700">② ここまでの出力の関係性をチェック (カンニング禁止！)</p>
+                    <p class="text-xs text-gray-600">(マスク付きマルチヘッド・セルフアテンション)</p>
+                    <p class="text-sm mt-1">「Cats」とそれ以前に出力した単語の関係性に注目。ただし、<span class="font-bold">未来の単語（これから生成する単語）は見えないようにマスク（目隠し）されている</span>！</p>
+                 </div>
+                 <div class="flex justify-center"><i class="fas fa-arrow-down arrow"></i></div>
+
+                 <div class="component-box max-w-md mx-auto">
+                     <p class="font-bold text-purple-700">③ 入力文の意味と、今の出力の関係性をチェック！</p>
+                     <p class="text-xs text-gray-600">(マルチヘッド・エンコーダー・デコーダー・アテンション)</p>
+                     <p class="text-sm mt-1">エンコーダーからの情報（元の日本語文の意味）と、今出力している英語（例: 「Cats」）の関係性に注目。「『猫は』に対応するのは『Cats』だな」と判断する感じ。</p>
+                     <p class="text-xs text-gray-500 mt-1">← <span class="encoder-output">エンコーダーからの意味情報</span> もここで使う！</p>
+                 </div>
+                 <div class="flex justify-center"><i class="fas fa-arrow-down arrow"></i></div>
+
+                 <div class="component-box max-w-md mx-auto">
+                     <p class="font-bold text-purple-700">④ 情報をさらにコネコネ</p>
+                     <p class="text-xs text-gray-600">(フィードフォワードネットワーク)</p>
+                     <p class="text-sm mt-1">全てのアテンション情報を合わせて、次の単語を予測するために処理する。</p>
+                 </div>
+                 <div class="flex justify-center"><i class="fas fa-arrow-down arrow"></i></div>
+
+                 <div class="component-box max-w-md mx-auto">
+                     <p class="font-bold text-purple-700">⑤ 次の単語を予測！</p>
+                     <p class="text-xs text-gray-600">(最終出力層)</p>
+                     <p class="text-sm mt-1">たくさんの単語候補の中から、次に来る確率が一番高い単語を選ぶ。</p>
+                     <p class="text-xs text-gray-500">例: 「are」の確率が一番高い！ → 次は「are」を出力</p>
+                 </div>
+
+                  <p class="text-center text-sm font-bold text-purple-800 mt-2">
+                     このデコーダーの処理を単語ごとに繰り返して、文を完成させるんだ！
+                 </p>
+             </div>
+
+              <div class="mt-4 bg-green-50 p-4 rounded-lg max-w-3xl text-center"> <p class="font-bold text-green-800"><i class="fas fa-lightbulb mr-1"></i>ここがポイント！</p>
+                <p class="text-sm text-gray-700">デコーダーは、<span class="font-bold">入力文の意味（エンコーダーから）</span>と<span class="font-bold">既に出力した文脈（マスク付きセルフアテンション）</span>の両方を見ながら、<span class="font-bold">次に来るのに最も自然な単語</span>を予測していく。だから流暢な文章が作れるんだ！</p>
+            </div>
+        </div>
+
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">12-3 / 20</span>
+        </div>
+    </div>
+</body>
+</html>

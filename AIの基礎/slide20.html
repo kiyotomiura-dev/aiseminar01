@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIの基礎 (中高生向け) - まとめ</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Rounded Mplus 1c', 'M PLUS Rounded 1c', 'Kosugi Maru', sans-serif;
+            background-color: #f0f9ff;
+            overflow: auto;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            margin: 0 auto;
+            position: relative;
+            overflow: auto;
+            background: linear-gradient(135deg, #e0f7fa 0%, #bbdefb 100%);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            padding: 40px;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .float-animation {
+            animation: float 4s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .pulse-animation {
+            animation: pulse 3s ease-in-out infinite;
+        }
+        .summary-card {
+            border-radius: 16px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            overflow: auto;
+        }
+        .summary-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+        }
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ff6b6b;
+            opacity: 0.8;
+            border-radius: 50%;
+            animation: confetti-fall 5s linear infinite;
+        }
+        @keyframes confetti-fall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(720px) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide flex flex-col">
+        <!-- Confetti celebration effect -->
+        <div class="confetti" style="left: 10%; animation-delay: 0.5s; background-color: #FF9900;"></div>
+        <div class="confetti" style="left: 20%; animation-delay: 1.5s; background-color: #66BB6A;"></div>
+        <div class="confetti" style="left: 30%; animation-delay: 0.2s; background-color: #FF5252;"></div>
+        <div class="confetti" style="left: 40%; animation-delay: 1.2s; background-color: #42A5F5;"></div>
+        <div class="confetti" style="left: 50%; animation-delay: 0.8s; background-color: #AB47BC;"></div>
+        <div class="confetti" style="left: 60%; animation-delay: 2.0s; background-color: #26C6DA;"></div>
+        <div class="confetti" style="left: 70%; animation-delay: 0.4s; background-color: #FFEE58;"></div>
+        <div class="confetti" style="left: 80%; animation-delay: 1.8s; background-color: #EC407A;"></div>
+        <div class="confetti" style="left: 90%; animation-delay: 0.9s; background-color: #7986CB;"></div>
+        
+        <!-- Header -->
+        <div class="flex justify-center items-center mb-8">
+            <h1 class="text-5xl font-bold text-indigo-800 text-center pulse-animation">おつかれさま！<br>AIの基礎を学びました！</h1>
+        </div>
+        
+        <div class="flex justify-center mb-6">
+            <div class="float-animation">
+                <div class="flex space-x-4">
+                    <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f389.svg" alt="Party popper emoji" class="w-16 h-16">
+                    <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f916.svg" alt="Robot emoji" class="w-16 h-16">
+                    <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f389.svg" alt="Party popper emoji" class="w-16 h-16">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main content - Summary -->
+        <div class="grid grid-cols-2 gap-6 mb-6">
+            <!-- Left column - What we learned -->
+            <div class="summary-card bg-white p-5">
+                <h3 class="text-xl font-bold text-purple-700 text-center mb-4">学んだこと</h3>
+                
+                <div class="space-y-3">
+                    <div class="flex items-start">
+                        <div class="bg-blue-100 rounded-full p-2 mr-3 flex-shrink-0 mt-1">
+                            <i class="fas fa-check text-blue-600"></i>
+                        </div>
+                        <p class="text-gray-700">AIの基本的な概念と種類（弱いAI/強いAI）</p>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-green-100 rounded-full p-2 mr-3 flex-shrink-0 mt-1">
+                            <i class="fas fa-check text-green-600"></i>
+                        </div>
+                        <p class="text-gray-700">身の回りにあるAIと学習方法</p>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-purple-100 rounded-full p-2 mr-3 flex-shrink-0 mt-1">
+                            <i class="fas fa-check text-purple-600"></i>
+                        </div>
+                        <p class="text-gray-700">ディープラーニングとニューラルネットワークの仕組み</p>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-pink-100 rounded-full p-2 mr-3 flex-shrink-0 mt-1">
+                            <i class="fas fa-check text-pink-600"></i>
+                        </div>
+                        <p class="text-gray-700">生成AIのしくみと応用例</p>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-yellow-100 rounded-full p-2 mr-3 flex-shrink-0 mt-1">
+                            <i class="fas fa-check text-yellow-600"></i>
+                        </div>
+                        <p class="text-gray-700">AIの課題と未来の可能性</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right column - Key takeaways -->
+            <div class="summary-card bg-white p-5">
+                <h3 class="text-xl font-bold text-indigo-700 text-center mb-4">これからのAIとの付き合い方</h3>
+                
+                <div class="space-y-3">
+                    <div class="flex items-start">
+                        <div class="bg-indigo-100 rounded-full p-2 mr-3 flex-shrink-0 mt-1">
+                            <i class="fas fa-lightbulb text-indigo-600"></i>
+                        </div>
+                        <div>
+                            <p class="text-gray-700 font-bold">AIを使いこなす</p>
+                            <p class="text-sm text-gray-600">AIは道具です。上手に使いこなして自分の可能性を広げましょう</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-indigo-100 rounded-full p-2 mr-3 flex-shrink-0 mt-1">
+                            <i class="fas fa-search text-indigo-600"></i>
+                        </div>
+                        <div>
+                            <p class="text-gray-700 font-bold">批判的思考を忘れない</p>
+                            <p class="text-sm text-gray-600">AIの出力をそのまま信じるのではなく、自分で確認・検証する習慣を</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-indigo-100 rounded-full p-2 mr-3 flex-shrink-0 mt-1">
+                            <i class="fas fa-users text-indigo-600"></i>
+                        </div>
+                        <div>
+                            <p class="text-gray-700 font-bold">人間にしかできないことを大切に</p>
+                            <p class="text-sm text-gray-600">創造性、共感力、倫理的判断など、人間らしさを磨きましょう</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Next steps -->
+        <div class="summary-card bg-indigo-50 p-5 mb-6">
+            <h3 class="text-xl font-bold text-indigo-800 text-center mb-3">次のステップ</h3>
+            
+            <div class="grid grid-cols-3 gap-4">
+                <div class="bg-white rounded-lg p-3 text-center">
+                    <div class="bg-blue-100 rounded-full p-3 w-16 h-16 flex items-center justify-center mx-auto mb-2">
+                        <i class="fas fa-laptop-code text-2xl text-blue-600"></i>
+                    </div>
+                    <h4 class="font-bold text-gray-800 text-sm mb-1">プログラミングを学ぶ</h4>
+                    <p class="text-xs text-gray-700">Python言語を使ってAIの基礎を実践してみよう</p>
+                </div>
+                
+                <div class="bg-white rounded-lg p-3 text-center">
+                    <div class="bg-green-100 rounded-full p-3 w-16 h-16 flex items-center justify-center mx-auto mb-2">
+                        <i class="fas fa-robot text-2xl text-green-600"></i>
+                    </div>
+                    <h4 class="font-bold text-gray-800 text-sm mb-1">AIツールを使ってみる</h4>
+                    <p class="text-xs text-gray-700">ChatGPTや画像生成AIなどを体験して理解を深めよう</p>
+                </div>
+                
+                <div class="bg-white rounded-lg p-3 text-center">
+                    <div class="bg-purple-100 rounded-full p-3 w-16 h-16 flex items-center justify-center mx-auto mb-2">
+                        <i class="fas fa-project-diagram text-2xl text-purple-600"></i>
+                    </div>
+                    <h4 class="font-bold text-gray-800 text-sm mb-1">小さなプロジェクトを始める</h4>
+                    <p class="text-xs text-gray-700">興味のあるテーマでAIを活用した小さな挑戦をしてみよう</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Final message -->
+        <div class="bg-gradient-to-r from-indigo-500 to-purple-500 rounded-xl p-6 text-center">
+            <h3 class="text-2xl font-bold text-white mb-2">AIとともに未来を創ろう！</h3>
+            <p class="text-white">あなたのアイデアと創造力で、AIを使った新しい未来を作ってください！</p>
+            <div class="mt-4 flex justify-center space-x-6">
+                <div class="float-animation">
+                    <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f31f.svg" alt="Glowing star emoji" class="w-12 h-12">
+                </div>
+                <div class="float-animation" style="animation-delay: 0.5s;">
+                    <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f680.svg" alt="Rocket emoji" class="w-12 h-12">
+                </div>
+                <div class="float-animation" style="animation-delay: 1s;">
+                    <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f31f.svg" alt="Glowing star emoji" class="w-12 h-12">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Page number -->
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">20 / 20</span>
+        </div>
+    </div>
+</body>
+</html>

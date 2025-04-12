@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transformerの仕組み⑤ (中高生向け) - ベクトル化って何？</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; font-family: 'M PLUS Rounded 1c', sans-serif; background-color: #f0f9ff; overflow: auto; }
+        .slide { width: 1280px; min-height: 720px; margin: 0 auto; position: relative; overflow: auto; background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); /* Green Gradient */ box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-radius: 12px; padding: 40px; display: flex; flex-direction: column; }
+        .vector-space { border: 2px dashed #6ee7b7; /* Emerald-300 */ border-radius: 10px; padding: 20px; margin-top: 20px; background-color: rgba(255, 255, 255, 0.8); position: relative; height: 300px; /* 高さを確保 */ }
+        .word-point { position: absolute; background-color: #10b981; /* Emerald-500 */ color: white; padding: 4px 8px; border-radius: 15px; font-size: 0.9rem; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .word-point.animal { background-color: #fb923c; } /* Orange for animals */
+        .word-point.vehicle { background-color: #60a5fa; } /* Blue for vehicles */
+        .arrow-dist { position: absolute; content: ''; width: 0; height: 0; border-top: 8px solid transparent; border-bottom: 8px solid transparent; }
+        .highlight { background-color: #a7f3d0; padding: 2px 5px; border-radius: 3px; font-weight: bold; }
+        .code-example { font-family: monospace; background-color: #e5e7eb; padding: 8px; border-radius: 4px; font-size: 0.9rem; overflow-x: auto; /* 横スクロール */ white-space: nowrap; /* 折り返さない */ }
+
+    </style>
+</head>
+<body>
+     <div class="slide">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-4xl font-bold text-green-800">言葉をAIがわかる「数字」に！<br>〜ベクトル化（埋め込み）って何？〜</h1>
+            <i class="fas fa-magic text-green-600 text-5xl"></i> </div>
+
+         <div class="flex-grow flex flex-col items-center justify-center">
+            <p class="text-xl text-center text-gray-700 mb-4">
+                AI（コンピューター）は、「猫」や「可愛い」といった<span class="highlight text-green-900">言葉そのものを直接理解することは苦手</span>なんだ。<br>
+                だから、言葉を<span class="highlight text-green-900">計算できる「数字のリスト」に変換</span>する必要がある。これが「ベクトル化」だよ！
+            </p>
+
+            <div class="bg-white p-6 rounded-lg shadow-md max-w-4xl w-full mb-6">
+                <h2 class="text-2xl font-bold text-center text-green-700 mb-4">ベクトル化（埋め込み）とは？</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                    <div>
+                        <p class="mb-3"><i class="fas fa-check text-green-500 mr-2"></i>各<span class="font-bold">単語</span>を、その<span class="font-bold">意味や特徴を表す「数字のリスト（ベクトル）」</span>に変換すること。</p>
+                        <p class="mb-3"><i class="fas fa-check text-green-500 mr-2"></i>イメージは、それぞれの単語に<span class="font-bold">「意味の地図上の住所」</span>や<span class="font-bold">「言葉のプロフィール」</span>を割り当てる感じ！</p>
+                        <p class="mb-3"><i class="fas fa-check text-green-500 mr-2"></i>このベクトルは、たくさんの数字（数百〜数千個！）で構成されていることが多いよ。</p>
+                         <p class="text-sm text-gray-600 mb-2">例：「猫」という単語のベクトル（イメージ）</p>
+                         <div class="code-example">
+                             猫 = [0.12, -0.55, 2.31, 0.08, ..., -1.04] <span class="text-xs text-gray-500"> (←たくさんの数字が続く！)</span>
+                         </div>
+                    </div>
+                     <div class="vector-space">
+                        <h3 class="text-center font-semibold text-gray-700 mb-2">意味の地図 (ベクトル空間のイメージ)</h3>
+                        <div class="word-point animal" style="top: 20%; left: 25%;">猫</div>
+                        <div class="word-point animal" style="top: 35%; left: 15%;">犬</div>
+                        <div class="word-point animal" style="top: 50%; left: 30%;">ペット</div>
+                        <div class="word-point vehicle" style="top: 60%; left: 70%;">車</div>
+                         <div class="word-point vehicle" style="top: 75%; left: 60%;">バス</div>
+                         <div class="word-point vehicle" style="top: 70%; left: 85%;">飛行機</div>
+                         <div class="word-point" style="top: 20%; left: 70%;">リンゴ</div>
+
+                        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
+                            <p class="text-sm text-red-600 font-bold bg-white p-1 rounded shadow-lg">
+                                <i class="fas fa-map-marker-alt mr-1"></i>意味が近い単語は<br>地図の上でも近くに！
+                            </p>
+                            <svg class="absolute top-[-60px] left-[-40px] w-[100px] h-[50px] opacity-70" viewbox="0 0 100 50">
+                                <line x1="10" y1="40" x2="90" y2="10" stroke="#fb923c" stroke-width="2" stroke-dasharray="4"/>
+                            </svg>
+                            <p class="text-xs text-gray-500 absolute top-[50px] left-0 w-full">（AIは単語間の「距離」を計算できる！）</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl w-full">
+                 <div class="bg-white p-4 rounded-lg shadow-md">
+                     <h3 class="font-bold text-green-700 mb-2"><i class="fas fa-cogs mr-1"></i>どうやって作るの？</h3>
+                     <p class="text-sm text-gray-700">AIが<span class="font-bold">大量の文章データを「読む」</span>中で、「どんな単語が一緒に使われやすいか」「どんな文脈で登場するか」といった<span class="font-bold">言葉の関係性を自動で学習</span>して、意味を反映したベクトルを作り上げていくんだ。</p>
+                 </div>
+                 <div class="bg-white p-4 rounded-lg shadow-md">
+                     <h3 class="font-bold text-green-700 mb-2"><i class="fas fa-thumbs-up mr-1"></i>何が嬉しいの？</h3>
+                     <p class="text-sm text-gray-700">ベクトル化することで、AIは…</p>
+                     <ul class="list-disc list-inside text-sm text-gray-700 ml-2 mt-1">
+                         <li>単語の<span class="font-bold">意味の近さ（類似度）</span>を計算できる！</li>
+                         <li>「王様 - 男性 + 女性 = 女王様」のような<span class="font-bold">関係性の計算</span>も可能になる！</li>
+                         <li>言葉を数学的に扱えるようになり、<span class="font-bold">翻訳や文章生成、質問応答</span>といった高度なタスクができるようになる！</li>
+                     </ul>
+                 </div>
+            </div>
+
+
+            <div class="mt-6 bg-green-50 p-4 rounded-lg max-w-3xl text-center">
+                <p class="font-bold text-green-800"><i class="fas fa-lightbulb mr-1"></i>ここがポイント！</p>
+                <p class="text-sm text-gray-700"><span class="font-bold">ベクトル化（埋め込み）</span>は、言葉をコンピューターが扱える形に変換するための<span class="font-bold">重要な第一歩</span>！ これがあるからこそ、Transformerのような賢い言語AIが実現できるんだね。</p>
+            </div>
+        </div>
+
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">12-5 / 20</span>
+        </div>
+    </div>
+</body>
+</html>

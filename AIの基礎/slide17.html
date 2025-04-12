@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIの基礎 (中高生向け) - AIを学ぶには</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Rounded Mplus 1c', 'M PLUS Rounded 1c', 'Kosugi Maru', sans-serif;
+            background-color: #f0f9ff;
+            overflow: auto;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            margin: 0 auto;
+            position: relative;
+            overflow: auto;
+            background: linear-gradient(135deg, #e0f7fa 0%, #bbdefb 100%);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            padding: 40px;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .float-animation {
+            animation: float 4s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .pulse-animation {
+            animation: pulse 3s ease-in-out infinite;
+        }
+        .resource-card {
+            border-radius: 16px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            overflow: auto;
+        }
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+        }
+        .level-badge {
+            border-radius: 20px;
+            transition: all 0.2s;
+        }
+        .pathway-arrow {
+            position: relative;
+        }
+        .pathway-arrow:after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-top: 15px solid #e2e8f0;
+            transform: translateX(-50%);
+        }
+    </style>
+</head>
+<body>
+    <div class="slide flex flex-col">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-4xl font-bold text-indigo-800">AIを学ぶには</h1>
+            <div class="float-animation">
+                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4da.svg" alt="Books emoji" class="w-16 h-16">
+            </div>
+        </div>
+        
+        <!-- Subtitle -->
+        <div class="bg-white bg-opacity-70 rounded-xl p-3 mb-6 max-w-2xl mx-auto text-center">
+            <p class="text-xl text-gray-700">AIに興味がわいたら、こんな風に学んでみよう！</p>
+        </div>
+        
+        <!-- Main content - Learning Pathway -->
+        <div class="mb-6">
+            <h3 class="text-xl font-bold text-purple-700 text-center mb-4">AIを学ぶステップ</h3>
+            
+            <div class="flex justify-around mb-6">
+                <div class="pathway-arrow text-center w-1/4">
+                    <div class="resource-card bg-blue-50 p-4 pulse-animation">
+                        <div class="flex justify-center mb-2">
+                            <div class="bg-blue-100 rounded-full p-2 w-14 h-14 flex items-center justify-center">
+                                <span class="text-2xl font-bold text-blue-700">1</span>
+                            </div>
+                        </div>
+                        <h4 class="font-bold text-gray-800 mb-1">AI入門</h4>
+                        <div class="bg-white rounded-lg p-2">
+                            <p class="text-sm text-gray-700">AIの基本概念や種類について知る</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pathway-arrow text-center w-1/4">
+                    <div class="resource-card bg-green-50 p-4 pulse-animation">
+                        <div class="flex justify-center mb-2">
+                            <div class="bg-green-100 rounded-full p-2 w-14 h-14 flex items-center justify-center">
+                                <span class="text-2xl font-bold text-green-700">2</span>
+                            </div>
+                        </div>
+                        <h4 class="font-bold text-gray-800 mb-1">プログラミング基礎</h4>
+                        <div class="bg-white rounded-lg p-2">
+                            <p class="text-sm text-gray-700">Python言語を学んでみる</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pathway-arrow text-center w-1/4">
+                    <div class="resource-card bg-purple-50 p-4 pulse-animation">
+                        <div class="flex justify-center mb-2">
+                            <div class="bg-purple-100 rounded-full p-2 w-14 h-14 flex items-center justify-center">
+                                <span class="text-2xl font-bold text-purple-700">3</span>
+                            </div>
+                        </div>
+                        <h4 class="font-bold text-gray-800 mb-1">AIモデル体験</h4>
+                        <div class="bg-white rounded-lg p-2">
+                            <p class="text-sm text-gray-700">既存のAIモデルを使ってみる</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center w-1/4">
+                    <div class="resource-card bg-pink-50 p-4 pulse-animation">
+                        <div class="flex justify-center mb-2">
+                            <div class="bg-pink-100 rounded-full p-2 w-14 h-14 flex items-center justify-center">
+                                <span class="text-2xl font-bold text-pink-700">4</span>
+                            </div>
+                        </div>
+                        <h4 class="font-bold text-gray-800 mb-1">AIプロジェクト</h4>
+                        <div class="bg-white rounded-lg p-2">
+                            <p class="text-sm text-gray-700">簡単なAIプロジェクトを作ってみる</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Learning Resources -->
+        <div class="grid grid-cols-3 gap-4 mb-6">
+            <!-- Online courses -->
+            <div class="resource-card bg-white p-4">
+                <div class="flex items-center mb-3">
+                    <div class="bg-blue-100 rounded-full p-2 mr-3 flex-shrink-0">
+                        <i class="fas fa-laptop text-blue-600"></i>
+                    </div>
+                    <h4 class="font-bold text-gray-800">オンラインコース</h4>
+                </div>
+                <ul class="space-y-2">
+                    <li class="flex items-center">
+                        <span class="text-blue-600 mr-2">•</span>
+                        <span class="text-sm text-gray-700">Coursera『AI for Everyone』</span>
+                        <span class="ml-auto level-badge bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full">初心者OK</span>
+                    </li>
+                    <li class="flex items-center">
+                        <span class="text-blue-600 mr-2">•</span>
+                        <span class="text-sm text-gray-700">Khan Academy『コンピュータサイエンス』</span>
+                        <span class="ml-auto level-badge bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full">初心者OK</span>
+                    </li>
+                    <li class="flex items-center">
+                        <span class="text-blue-600 mr-2">•</span>
+                        <span class="text-sm text-gray-700">Udacity『AI入門』</span>
+                        <span class="ml-auto level-badge bg-yellow-100 text-yellow-700 text-xs px-2 py-1 rounded-full">中級者向け</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Free tools -->
+            <div class="resource-card bg-white p-4">
+                <div class="flex items-center mb-3">
+                    <div class="bg-green-100 rounded-full p-2 mr-3 flex-shrink-0">
+                        <i class="fas fa-tools text-green-600"></i>
+                    </div>
+                    <h4 class="font-bold text-gray-800">無料で使えるツール</h4>
+                </div>
+                <ul class="space-y-2">
+                    <li class="flex items-center">
+                        <span class="text-green-600 mr-2">•</span>
+                        <span class="text-sm text-gray-700">Google Colaboratory（プログラミング）</span>
+                    </li>
+                    <li class="flex items-center">
+                        <span class="text-green-600 mr-2">•</span>
+                        <span class="text-sm text-gray-700">Teachable Machine（画像認識体験）</span>
+                    </li>
+                    <li class="flex items-center">
+                        <span class="text-green-600 mr-2">•</span>
+                        <span class="text-sm text-gray-700">Scratch（ビジュアルプログラミング）</span>
+                    </li>
+                    <li class="flex items-center">
+                        <span class="text-green-600 mr-2">•</span>
+                        <span class="text-sm text-gray-700">ChatGPT（対話型AI体験）</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Books & Community -->
+            <div class="resource-card bg-white p-4">
+                <div class="flex items-center mb-3">
+                    <div class="bg-purple-100 rounded-full p-2 mr-3 flex-shrink-0">
+                        <i class="fas fa-book text-purple-600"></i>
+                    </div>
+                    <h4 class="font-bold text-gray-800">本とコミュニティ</h4>
+                </div>
+                <ul class="space-y-2">
+                    <li class="flex items-center">
+                        <span class="text-purple-600 mr-2">•</span>
+                        <span class="text-sm text-gray-700">『AIの遺電子』（マンガで学ぶAI）</span>
+                    </li>
+                    <li class="flex items-center">
+                        <span class="text-purple-600 mr-2">•</span>
+                        <span class="text-sm text-gray-700">『いちばんやさしいPython入門教室』</span>
+                    </li>
+                    <li class="flex items-center">
+                        <span class="text-purple-600 mr-2">•</span>
+                        <span class="text-sm text-gray-700">GitHub（プログラミングコミュニティ）</span>
+                    </li>
+                    <li class="flex items-center">
+                        <span class="text-purple-600 mr-2">•</span>
+                        <span class="text-sm text-gray-700">高校・大学のAI関連コンテスト</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Fun beginner projects -->
+        <div class="bg-indigo-50 rounded-xl p-4 max-w-4xl mx-auto mb-2">
+            <h3 class="text-lg font-bold text-indigo-800 text-center mb-3">初心者にオススメ！簡単AIプロジェクト</h3>
+            <div class="grid grid-cols-4 gap-3">
+                <div class="bg-white rounded-lg p-3 text-center">
+                    <div class="float-animation">
+                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f436.svg" alt="Dog emoji" class="w-10 h-10 mx-auto mb-1">
+                    </div>
+                    <p class="text-xs text-gray-700 font-medium">犬と猫を見分ける画像分類器</p>
+                </div>
+                <div class="bg-white rounded-lg p-3 text-center">
+                    <div class="float-animation">
+                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4f1.svg" alt="Mobile phone emoji" class="w-10 h-10 mx-auto mb-1">
+                    </div>
+                    <p class="text-xs text-gray-700 font-medium">スマホでジェスチャー認識</p>
+                </div>
+                <div class="bg-white rounded-lg p-3 text-center">
+                    <div class="float-animation">
+                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3ae.svg" alt="Game controller emoji" class="w-10 h-10 mx-auto mb-1">
+                    </div>
+                    <p class="text-xs text-gray-700 font-medium">AIと対戦できるゲーム</p>
+                </div>
+                <div class="bg-white rounded-lg p-3 text-center">
+                    <div class="float-animation">
+                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4ac.svg" alt="Speech bubble emoji" class="w-10 h-10 mx-auto mb-1">
+                    </div>
+                    <p class="text-xs text-gray-700 font-medium">簡単なチャットボット</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Page number -->
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">17 / 20</span>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transformerの仕組み② (中高生向け) - エンコーダー</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+     <style>
+        body { margin: 0; padding: 0; font-family: 'M PLUS Rounded 1c', sans-serif; background-color: #f0f9ff; overflow: auto; }
+        .slide { width: 1280px; min-height: 720px; margin: 0 auto; position: relative; overflow: auto; background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); /* Green Gradient */ box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-radius: 12px; padding: 40px; display: flex; flex-direction: column; }
+        .encoder-block { border: 3px solid #3b82f6; /* Blue-600 */ border-radius: 10px; padding: 20px; background: rgba(219, 234, 254, 0.7); /* Blue-100 with transparency */ width: 90%; margin: 0 auto; }
+        .component-box { background: white; border: 1px solid #93c5fd; /* Blue-300 */ border-radius: 6px; padding: 10px; margin-bottom: 15px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .arrow { font-size: 1.5rem; color: #60a5fa; /* Blue-400 */ margin: 5px 0; }
+        .highlight { background-color: #a7f3d0; padding: 2px 5px; border-radius: 3px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-4xl font-bold text-green-800">Transformerの心臓部①：エンコーダー<br>〜文の意味を読み取る仕組み〜</h1>
+             <i class="fas fa-book-open text-blue-600 text-5xl"></i> </div>
+
+         <div class="flex-grow flex flex-col items-center justify-center">
+            <p class="text-xl text-center text-gray-700 mb-6">
+                エンコーダーは、いくつかの部品が協力して、入力された文の<span class="highlight text-green-900">意味や単語同士の関係</span>を深く理解するよ。
+            </p>
+
+             <div class="encoder-block">
+                 <p class="text-center font-bold text-blue-700 mb-4">エンコーダーの内部</p>
+
+                 <div class="text-center mb-3">
+                    <p class="font-semibold">入力文: 「猫はかわいい」</p>
+                </div>
+                <div class="flex justify-center"><i class="fas fa-arrow-down arrow"></i></div>
+
+                 <div class="component-box max-w-md mx-auto">
+                    <p class="font-bold text-blue-700">① 言葉のIDカード作成 ＋ 順番情報追加</p>
+                    <p class="text-xs text-gray-600">(入力埋め込み + 位置エンコーディング)</p>
+                    <p class="text-sm mt-1">各単語を「意味を表す数字の列（ベクトル）」に変換し、「文の何番目か」という情報も加える。</p>
+                     <p class="text-xs text-gray-500">例: 「猫」「は」「かわいい」→ それぞれのIDカードに変換！</p>
+                </div>
+                 <div class="flex justify-center"><i class="fas fa-arrow-down arrow"></i></div>
+
+                <div class="component-box max-w-md mx-auto">
+                    <p class="font-bold text-blue-700">② 単語の関係性をチェック！</p>
+                    <p class="text-xs text-gray-600">(マルチヘッド・セルフアテンション)</p>
+                    <p class="text-sm mt-1">文の中の<span class="font-bold">全ての単語同士</span>を見比べて、「どの単語がどの単語と深く関係しているか」に注目する。<span class="font-bold">複数の視点（マルチヘッド）</span>でチェック！</p>
+                    <p class="text-xs text-gray-500">例: 「かわいい」は「猫」と強く関係しているな、と判断。</p>
+                 </div>
+                 <div class="flex justify-center"><i class="fas fa-arrow-down arrow"></i></div>
+
+                 <div class="component-box max-w-md mx-auto">
+                    <p class="font-bold text-blue-700">③ 情報をさらにコネコネ</p>
+                    <p class="text-xs text-gray-600">(フィードフォワードネットワーク)</p>
+                    <p class="text-sm mt-1">アテンションで得た「関係性」の情報を、さらに処理して、より分かりやすい形に変換する。</p>
+                 </div>
+                <div class="flex justify-center"><i class="fas fa-arrow-down arrow"></i></div>
+
+                 <p class="text-xs text-center text-gray-500 mb-3">(実際には、②と③の間や後に「情報を混ぜて整える」ステップもあります)</p>
+
+                 <div class="text-center mt-3">
+                     <p class="font-semibold">出力: 文の意味情報 (ベクトル)</p>
+                     <p class="text-xs text-gray-500">デコーダーへ渡される</p>
+                </div>
+
+                 <p class="text-center text-sm font-bold text-blue-800 mt-4">
+                     この「アテンション」と「コネコネ」のセットが何層も重なっているよ！
+                 </p>
+            </div>
+
+             <div class="mt-6 bg-green-50 p-4 rounded-lg max-w-3xl text-center">
+                <p class="font-bold text-green-800"><i class="fas fa-lightbulb mr-1"></i>ここがポイント！</p>
+                <p class="text-sm text-gray-700">エンコーダーの<span class="font-bold">「セルフアテンション」</span>が、文全体の単語の関係性を捉えるカギ！ これにより、言葉のニュアンスや文脈を深く理解できるんだ。</p>
+            </div>
+        </div>
+
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">12-2 / 20</span>
+        </div>
+    </div>
+</body>
+</html>

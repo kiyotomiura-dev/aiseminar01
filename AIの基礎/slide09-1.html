@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成AIモデル① (中高生向け) - GAN【図解つき】</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; font-family: 'M PLUS Rounded 1c', sans-serif; background-color: #f0f9ff; overflow: auto; }
+        .slide { width: 1280px; min-height: 720px; margin: 0 auto; position: relative; overflow: auto; background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%); /* Pink Gradient */ box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-radius: 12px; padding: 40px; display: flex; flex-direction: column; }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        .float-animation { animation: float 4s ease-in-out infinite; }
+        .learn-card { border-radius: 16px; box-shadow: 0 8px 16px rgba(0,0,0,0.08); transition: all 0.3s; background-color: white; display: flex; flex-direction: column; }
+        .learn-card:hover { transform: translateY(-5px); box-shadow: 0 12px 24px rgba(0,0,0,0.12); }
+        .card-content { flex-grow: 1; padding: 24px; }
+        .card-footer { padding: 16px 24px; background-color: rgba(0, 0, 0, 0.03); border-top: 1px solid rgba(0,0,0,0.05); margin-top: auto; }
+        .twemoji { width: 3rem; height: 3rem; }
+        /* 図解用スタイル */
+        .diagram-box {
+            border: 2px dashed;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            min-height: 100px; /* 高さを確保 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .arrow {
+            font-size: 1.5rem; /* 矢印サイズ */
+            margin: 0 10px; /* 矢印の左右マージン */
+            color: #6b7280; /* 矢印の色 */
+        }
+        .feedback-arrow {
+            font-size: 1rem;
+            color: #ef4444; /* 赤色 */
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="flex justify-between items-center mb-4"> <h1 class="text-4xl font-bold text-pink-800">生成AIモデル①：GAN (ガン)<br>〜リアルを追求する絵の達人！〜</h1>
+            <div class="float-animation">
+                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f58c.svg" alt="Paintbrush emoji" class="w-16 h-16"> </div>
+        </div>
+
+        <div class="flex-grow flex items-center justify-center">
+            <div class="learn-card max-w-3xl w-full"> <div class="card-content">
+                    <div class="flex items-center mb-4">
+                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3a8.svg" alt="Art emoji" class="twemoji mr-3">
+                        <h2 class="text-2xl font-bold text-pink-700">GAN (敵対的生成ネットワーク)</h2>
+                    </div>
+                    <p class="text-gray-800 mb-4">
+                        <span class="font-bold">どんなAI？:</span> <span class="text-pink-600 font-semibold">「作る人」</span>と<span class="text-blue-600 font-semibold">「見抜く人」</span>がライバルとして競い合い、お互いを高め合うことで成長するAIだよ！ 下の図を見てみよう！
+                    </p>
+
+                    <div class="mt-6 border-t pt-4">
+                        <h3 class="text-lg font-semibold text-center text-gray-700 mb-4">GANのしくみ (お互いを高め合うライバル！)</h3>
+                        <div class="flex items-center justify-around relative mb-4">
+                             <div class="diagram-box border-pink-400 w-48"> <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3a8.svg" alt="Art emoji" class="w-8 h-8 mb-1">
+                                <p class="font-bold text-pink-600">作る人 (生成器)</p>
+                                <p class="text-xs text-gray-600 mt-1">「本物そっくりな<br>ニセモノを作るぞ！」</p>
+                                <p class="text-xs text-gray-500 mt-2">入力: <span class="font-mono">Z</span> (もとになる情報)</p>
+                            </div>
+
+                            <div class="flex flex-col items-center">
+                                 <i class="fas fa-arrow-right arrow"></i>
+                                 <p class="text-xs text-gray-600 mt-1">ニセモノ画像<br>(生成画像)</p>
+                             </div>
+
+
+                            <div class="diagram-box border-blue-400 w-48"> <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f50d.svg" alt="Magnifying glass emoji" class="w-8 h-8 mb-1">
+                                <p class="font-bold text-blue-600">見抜く人 (識別器)</p>
+                                <p class="text-xs text-gray-600 mt-1">「本物か？ニセモノか？<br>見抜いてやる！」</p>
+                                <p class="text-xs text-gray-500 mt-2">入力: ニセモノ画像 / 本物画像</p>
+                            </div>
+                        </div>
+
+                        <div class="relative h-16 mt-2"> <div class="absolute bottom-0 left-1/4 transform -translate-x-1/2 flex items-center">
+                                 <i class="fas fa-arrow-left feedback-arrow mr-1"></i>
+                                 <p class="text-xs text-red-600">「もっと本物っぽく作れ！」<br>(学習のヒント)</p>
+                             </div>
+                             <div class="absolute bottom-0 right-1/4 transform translate-x-1/2 flex items-center">
+                                 <i class="fas fa-undo feedback-arrow mr-1 transform scale-x-[-1]"></i>
+                                 <p class="text-xs text-red-600">「よし、もっと見抜くぞ！」<br>(学習のヒント)</p>
+                             </div>
+                             <div class="absolute top-[-50px] right-[25%] transform translate-x-1/2 text-center">
+                                 <p class="text-xs text-gray-600 mb-1">本物画像</p>
+                                 <i class="fas fa-arrow-down arrow" style="font-size: 1.2rem;"></i>
+                             </div>
+
+                        </div>
+
+                        <p class="text-sm text-center text-gray-700 mt-4">
+                            この<span class="font-bold text-pink-600">作る人</span>と<span class="font-bold text-blue-600">見抜く人</span>が何度も勝負を繰り返すことで、<span class="font-bold">作る人はどんどん本物に近いニセモノを作れるようになり</span>、<span class="font-bold">見抜く人もより鋭く本物とニセモノを見分けられるように</span>なります。
+                        </p>
+                    </div>
+                    </div>
+                <div class="card-footer">
+                    <p class="text-sm text-gray-600"><i class="fas fa-lightbulb mr-1 text-yellow-500"></i><span class="font-bold">だから、こんなことができる！:</span></p>
+                     <ul class="list-disc list-inside text-sm text-gray-700 ml-4 mt-1">
+                         <li>この世に存在しないリアルな人の顔写真を作る</li>
+                         <li>画像の解像度を上げる（高画質化）</li>
+                         <li>写真の一部を自然に描き足す（修復）</li>
+                         <li>絵のタッチ（画風）を自由に変える</li>
+                     </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">10 / 20</span>
+        </div>
+    </div>
+</body>
+</html>

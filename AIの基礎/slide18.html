@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIの基礎 (中高生向け) - AIの未来</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Rounded Mplus 1c', 'M PLUS Rounded 1c', 'Kosugi Maru', sans-serif;
+            background-color: #f0f9ff;
+            overflow: auto;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            margin: 0 auto;
+            position: relative;
+            overflow: auto;
+            background: linear-gradient(135deg, #e0f7fa 0%, #bbdefb 100%);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            padding: 40px;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .float-animation {
+            animation: float 4s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .pulse-animation {
+            animation: pulse 3s ease-in-out infinite;
+        }
+        .future-card {
+            border-radius: 16px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            overflow: auto;
+        }
+        .future-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+        }
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #8b5cf6;
+            position: relative;
+            z-index: 10;
+        }
+        .timeline-line {
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            right: 20px;
+            height: 3px;
+            background-color: #c4b5fd;
+            z-index: 5;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide flex flex-col">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-4xl font-bold text-indigo-800">AIの未来</h1>
+            <div class="float-animation">
+                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f52e.svg" alt="Crystal ball emoji" class="w-16 h-16">
+            </div>
+        </div>
+        
+        <!-- Subtitle -->
+        <div class="bg-white bg-opacity-70 rounded-xl p-3 mb-6 max-w-2xl mx-auto text-center">
+            <p class="text-xl text-gray-700">これからのAI技術で世界はどう変わる？</p>
+        </div>
+        
+        <!-- Timeline heading -->
+        <div class="relative mb-2 mx-auto w-4/5">
+            <div class="flex justify-between">
+                <div class="text-center">
+                    <div class="timeline-dot mx-auto"></div>
+                    <p class="text-indigo-800 font-bold mt-1">現在</p>
+                </div>
+                <div class="text-center">
+                    <div class="timeline-dot mx-auto"></div>
+                    <p class="text-indigo-800 font-bold mt-1">近い未来</p>
+                </div>
+                <div class="text-center">
+                    <div class="timeline-dot mx-auto"></div>
+                    <p class="text-indigo-800 font-bold mt-1">遠い未来</p>
+                </div>
+            </div>
+            <div class="timeline-line"></div>
+        </div>
+        
+        <!-- Future AI developments grid -->
+        <div class="grid grid-cols-3 gap-5 mb-6">
+            <!-- Near future -->
+            <div>
+                <div class="future-card bg-blue-50 p-4 mb-3">
+                    <div class="flex items-center mb-2">
+                        <div class="bg-blue-100 rounded-full p-2 mr-3 flex-shrink-0">
+                            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f697.svg" alt="Car emoji" class="w-10 h-10">
+                        </div>
+                        <h4 class="font-bold text-gray-800">自動運転の普及</h4>
+                    </div>
+                    <p class="text-sm text-gray-700">AIが運転するクルマやバスが一般的になり、交通事故が大幅に減少</p>
+                </div>
+                
+                <div class="future-card bg-blue-50 p-4">
+                    <div class="flex items-center mb-2">
+                        <div class="bg-blue-100 rounded-full p-2 mr-3 flex-shrink-0">
+                            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f469-200d-2695-fe0f.svg" alt="Doctor emoji" class="w-10 h-10">
+                        </div>
+                        <h4 class="font-bold text-gray-800">医療診断の精度向上</h4>
+                    </div>
+                    <p class="text-sm text-gray-700">AIによる画像診断や健康データ分析でより早期の病気発見が可能に</p>
+                </div>
+            </div>
+            
+            <!-- Medium future -->
+            <div>
+                <div class="future-card bg-purple-50 p-4 mb-3">
+                    <div class="flex items-center mb-2">
+                        <div class="bg-purple-100 rounded-full p-2 mr-3 flex-shrink-0">
+                            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f916.svg" alt="Robot emoji" class="w-10 h-10">
+                        </div>
+                        <h4 class="font-bold text-gray-800">家庭用ロボット</h4>
+                    </div>
+                    <p class="text-sm text-gray-700">高度なAIを搭載したロボットが家事や介護をサポート</p>
+                </div>
+                
+                <div class="future-card bg-purple-50 p-4">
+                    <div class="flex items-center mb-2">
+                        <div class="bg-purple-100 rounded-full p-2 mr-3 flex-shrink-0">
+                            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f30e.svg" alt="Earth emoji" class="w-10 h-10">
+                        </div>
+                        <h4 class="font-bold text-gray-800">気候変動対策</h4>
+                    </div>
+                    <p class="text-sm text-gray-700">AIによる気象予測や環境データ分析で効率的な対策が可能に</p>
+                </div>
+            </div>
+            
+            <!-- Far future -->
+            <div>
+                <div class="future-card bg-pink-50 p-4 mb-3">
+                    <div class="flex items-center mb-2">
+                        <div class="bg-pink-100 rounded-full p-2 mr-3 flex-shrink-0">
+                            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9a0.svg" alt="Microbe emoji" class="w-10 h-10">
+                        </div>
+                        <h4 class="font-bold text-gray-800">ナノテクノロジーAI</h4>
+                    </div>
+                    <p class="text-sm text-gray-700">超小型AIロボットが体内で病気を治療する医療革命が起きるかも</p>
+                </div>
+                
+                <div class="future-card bg-pink-50 p-4">
+                    <div class="flex items-center mb-2">
+                        <div class="bg-pink-100 rounded-full p-2 mr-3 flex-shrink-0">
+                            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f680.svg" alt="Rocket emoji" class="w-10 h-10">
+                        </div>
+                        <h4 class="font-bold text-gray-800">宇宙進出</h4>
+                    </div>
+                    <p class="text-sm text-gray-700">AIが宇宙探査や惑星開発を支援し、人類の活動範囲を広げる</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Future scenarios -->
+        <div class="bg-white bg-opacity-80 rounded-xl p-5 mb-4">
+            <h3 class="text-lg font-bold text-indigo-800 text-center mb-3">30年後の未来予想図</h3>
+            
+            <div class="grid grid-cols-2 gap-6">
+                <div class="future-card bg-green-50 p-4">
+                    <div class="flex items-start mb-2">
+                        <div class="bg-green-100 rounded-full p-2 mr-3 flex-shrink-0">
+                            <i class="fas fa-check text-green-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-800 mb-1">AIと人間の協力社会</h4>
+                            <p class="text-sm text-gray-700">
+                                AIが危険な仕事や単調な作業を担当し、人間はより創造的な活動や人間関係に集中できる社会。
+                                AIのおかげで働く時間が減り、趣味や家族との時間が増えるかも！
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="future-card bg-yellow-50 p-4">
+                    <div class="flex items-start mb-2">
+                        <div class="bg-yellow-100 rounded-full p-2 mr-3 flex-shrink-0">
+                            <i class="fas fa-exclamation-triangle text-yellow-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-800 mb-1">気をつけるべきこと</h4>
+                            <p class="text-sm text-gray-700">
+                                AIに依存しすぎず、人間の判断力や創造性を大切にすること。
+                                AIの発展には倫理的なルール作りが必要で、みんなが恩恵を受けられる社会にしなければなりません。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Message to students -->
+        <div class="bg-indigo-50 rounded-xl p-4 max-w-3xl mx-auto">
+            <div class="flex items-center">
+                <div class="bg-indigo-100 rounded-full p-2 mr-3 flex-shrink-0">
+                    <i class="fas fa-lightbulb text-indigo-600"></i>
+                </div>
+                <div>
+                    <h4 class="font-bold text-indigo-800 mb-1">皆さんが作る未来</h4>
+                    <p class="text-gray-700">AIの未来は今の中高生の皆さんが作っていくもの。どんな未来にしたいか、AIをどう活用したいか、自分なりに考えてみましょう！</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Page number -->
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">18 / 20</span>
+        </div>
+    </div>
+</body>

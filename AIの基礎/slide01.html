@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIの基礎 (中高生向け)</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Rounded Mplus 1c', 'M PLUS Rounded 1c', 'Kosugi Maru', sans-serif;
+            background-color: #f0f9ff;
+            overflow: auto;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            margin: 0 auto;
+            position: relative;
+            overflow: auto;
+            background: linear-gradient(135deg, #e0f7fa 0%, #bbdefb 100%);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-radius: 12px;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        .float-animation {
+            animation: float 4s ease-in-out infinite;
+        }
+        .brain-icon {
+            position: absolute;
+            right: 80px;
+            top: 140px;
+            font-size: 200px;
+            color: rgba(79, 70, 229, 0.2);
+            transform: rotate(15deg);
+        }
+        .robot-icon {
+            position: absolute;
+            left: 100px;
+            bottom: 80px;
+            font-size: 150px;
+            color: rgba(236, 72, 153, 0.2);
+            transform: rotate(-10deg);
+        }
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        .network-dot {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: rgba(79, 70, 229, 0.5);
+            border-radius: 50%;
+        }
+        .network-line {
+            position: absolute;
+            height: 2px;
+            background-color: rgba(79, 70, 229, 0.2);
+            transform-origin: 0 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide flex flex-col items-center justify-center">
+        <!-- Background elements -->
+        <div class="brain-icon">
+            <i class="fas fa-brain"></i>
+        </div>
+        <div class="robot-icon">
+            <i class="fas fa-robot"></i>
+        </div>
+        
+        <!-- Floating bubbles -->
+        <div class="bubble" style="width: 60px; height: 60px; top: 15%; left: 20%;"></div>
+        <div class="bubble" style="width: 40px; height: 40px; top: 25%; left: 85%;"></div>
+        <div class="bubble" style="width: 30px; height: 30px; top: 70%; left: 75%;"></div>
+        <div class="bubble" style="width: 50px; height: 50px; top: 80%; left: 15%;"></div>
+        
+        <!-- Network visualization (simplified) -->
+        <div class="network-dot" style="top: 30%; left: 40%;"></div>
+        <div class="network-dot" style="top: 35%; left: 60%;"></div>
+        <div class="network-dot" style="top: 50%; left: 50%;"></div>
+        <div class="network-dot" style="top: 60%; left: 30%;"></div>
+        <div class="network-dot" style="top: 65%; left: 70%;"></div>
+        
+        <div class="network-line" style="top: 30%; left: 40%; width: 200px; transform: rotate(10deg);"></div>
+        <div class="network-line" style="top: 35%; left: 60%; width: 100px; transform: rotate(140deg);"></div>
+        <div class="network-line" style="top: 50%; left: 50%; width: 150px; transform: rotate(240deg);"></div>
+        <div class="network-line" style="top: 60%; left: 30%; width: 180px; transform: rotate(30deg);"></div>
+
+        <!-- Main content -->
+        <div class="z-10 text-center px-8">
+            <div class="float-animation">
+                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f916.svg" alt="Robot emoji" class="w-32 h-32 mx-auto mb-4">
+            </div>
+            <h1 class="text-6xl font-bold mb-4 text-indigo-800">AIの基礎</h1>
+            <h2 class="text-3xl font-semibold mb-8 text-pink-600">～人工知能ってなに？～</h2>
+            <p class="text-xl text-gray-700 mb-4">生成AI入門セミナー</p>
+            <div class="mt-8 inline-block bg-white bg-opacity-70 rounded-full px-8 py-3 shadow-lg">
+                <p class="text-lg text-gray-700">難しいことはナシ！イラストでわかる！</p>
+            </div>
+        </div>
+        
+        <!-- Page number -->
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">1 / 20</span>
+        </div>
+    </div>
+</body>
+</html>

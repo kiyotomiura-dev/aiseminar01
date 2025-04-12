@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIの基礎 (中高生向け) - 生成AIの実例：画像生成</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Rounded Mplus 1c', 'M PLUS Rounded 1c', 'Kosugi Maru', sans-serif;
+            background-color: #f0f9ff;
+            overflow: auto;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            margin: 0 auto;
+            position: relative;
+            overflow: auto;
+            background: linear-gradient(135deg, #e0f7fa 0%, #bbdefb 100%);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            padding: 40px;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .float-animation {
+            animation: float 4s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .pulse-animation {
+            animation: pulse 3s ease-in-out infinite;
+        }
+        .image-card {
+            border-radius: 16px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            overflow: auto;
+        }
+        .image-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+        }
+        .process-arrow {
+            position: relative;
+        }
+        .process-arrow:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -25px;
+            width: 0;
+            height: 0;
+            border-top: 12px solid transparent;
+            border-bottom: 12px solid transparent;
+            border-left: 16px solid #e2e8f0;
+            transform: translateY(-50%);
+        }
+        .prompt-box {
+            border: 2px dashed #6366f1;
+            border-radius: 12px;
+            background-color: #eef2ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide flex flex-col">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-4xl font-bold text-indigo-800">生成AIの実例：画像生成</h1>
+            <div class="float-animation">
+                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f58c.svg" alt="Artist palette emoji" class="w-16 h-16">
+            </div>
+        </div>
+        
+        <!-- Subtitle -->
+        <div class="bg-white bg-opacity-70 rounded-xl p-3 mb-6 max-w-2xl mx-auto text-center">
+            <p class="text-xl text-gray-700">言葉だけで絵を描いてくれる魔法のようなAI！</p>
+        </div>
+        
+        <!-- Main content - Image Generation Example -->
+        <div class="grid grid-cols-2 gap-8 mb-6">
+            <!-- Left side: Example images -->
+            <div class="image-card bg-white p-5">
+                <h3 class="text-xl font-bold text-purple-700 text-center mb-3">AIが作った画像の例</h3>
+                
+                <div class="grid grid-cols-2 gap-3 mb-3">
+                    <div class="bg-purple-50 p-2 rounded-lg">
+                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f431-200d-1f680.svg" alt="Space cat" class="w-full h-32 object-contain mx-auto">
+                        <p class="text-center text-sm text-gray-700 mt-1">「宇宙飛行士の猫」</p>
+                    </div>
+                    <div class="bg-purple-50 p-2 rounded-lg">
+                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f409.svg" alt="Dragon" class="w-full h-32 object-contain mx-auto">
+                        <p class="text-center text-sm text-gray-700 mt-1">「ファンタジーの城とドラゴン」</p>
+                    </div>
+                    <div class="bg-purple-50 p-2 rounded-lg">
+                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f30c.svg" alt="Milky way" class="w-full h-32 object-contain mx-auto">
+                        <p class="text-center text-sm text-gray-700 mt-1">「未来の都市と星空」</p>
+                    </div>
+                    <div class="bg-purple-50 p-2 rounded-lg">
+                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f984.svg" alt="Unicorn" class="w-full h-32 object-contain mx-auto">
+                        <p class="text-center text-sm text-gray-700 mt-1">「虹と魔法の森のユニコーン」</p>
+                    </div>
+                </div>
+                
+                <div class="bg-yellow-50 rounded-lg p-3">
+                    <div class="flex items-center">
+                        <div class="bg-yellow-100 rounded-full p-2 mr-3 flex-shrink-0">
+                            <i class="fas fa-lightbulb text-yellow-600"></i>
+                        </div>
+                        <p class="text-gray-700 text-sm">実際のAI画像生成は、もっと精密で本物らしい画像を生成できます！</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right side: How it works -->
+            <div>
+                <h3 class="text-xl font-bold text-teal-700 text-center mb-3">画像生成AIの仕組み</h3>
+                
+                <div class="bg-white rounded-xl p-4 mb-4">
+                    <div class="prompt-box p-3 mb-4">
+                        <p class="text-center font-bold text-indigo-700 mb-1">プロンプト（指示文）を入力</p>
+                        <p class="text-center text-gray-700 text-sm">"夕焼けの海辺で本を読む猫"</p>
+                    </div>
+                    
+                    <div class="flex justify-around items-center mb-3">
+                        <div class="process-arrow text-center">
+                            <div class="bg-blue-100 rounded-full p-2 w-12 h-12 flex items-center justify-center mx-auto mb-1">
+                                <i class="fas fa-brain text-blue-600"></i>
+                            </div>
+                            <p class="text-xs text-gray-700">AIが言葉を理解</p>
+                        </div>
+                        
+                        <div class="process-arrow text-center">
+                            <div class="bg-purple-100 rounded-full p-2 w-12 h-12 flex items-center justify-center mx-auto mb-1">
+                                <i class="fas fa-palette text-purple-600"></i>
+                            </div>
+                            <p class="text-xs text-gray-700">要素を組み合わせ</p>
+                        </div>
+                        
+                        <div class="text-center">
+                            <div class="bg-green-100 rounded-full p-2 w-12 h-12 flex items-center justify-center mx-auto mb-1">
+                                <i class="fas fa-image text-green-600"></i>
+                            </div>
+                            <p class="text-xs text-gray-700">画像を生成</p>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-4 gap-1 mb-2">
+                        <div class="bg-gray-100 rounded p-1">
+                            <div class="float-animation">
+                                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f307.svg" alt="Sunset" class="w-12 h-12 mx-auto">
+                            </div>
+                            <p class="text-center text-xs">夕焼け</p>
+                        </div>
+                        <div class="bg-gray-100 rounded p-1">
+                            <div class="float-animation">
+                                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3d6.svg" alt="Beach" class="w-12 h-12 mx-auto">
+                            </div>
+                            <p class="text-center text-xs">海辺</p>
+                        </div>
+                        <div class="bg-gray-100 rounded p-1">
+                            <div class="float-animation">
+                                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4d6.svg" alt="Book" class="w-12 h-12 mx-auto">
+                            </div>
+                            <p class="text-center text-xs">本</p>
+                        </div>
+                        <div class="bg-gray-100 rounded p-1">
+                            <div class="float-animation">
+                                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f408.svg" alt="Cat" class="w-12 h-12 mx-auto">
+                            </div>
+                            <p class="text-center text-xs">猫</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Popular tools -->
+                <div class="image-card bg-indigo-50 p-4">
+                    <h3 class="text-lg font-bold text-indigo-700 mb-3 text-center">主な画像生成AI</h3>
+                    <div class="grid grid-cols-3 gap-2">
+                        <div class="bg-white rounded-lg p-3 text-center">
+                            <div class="bg-red-100 rounded-full p-2 w-10 h-10 flex items-center justify-center mx-auto mb-1">
+                                <i class="fas fa-robot text-red-600"></i>
+                            </div>
+                            <h4 class="font-bold text-gray-800 text-sm">DALL-E</h4>
+                            <p class="text-xs text-gray-600">OpenAI</p>
+                        </div>
+                        <div class="bg-white rounded-lg p-3 text-center">
+                            <div class="bg-blue-100 rounded-full p-2 w-10 h-10 flex items-center justify-center mx-auto mb-1">
+                                <i class="fas fa-moon text-blue-600"></i>
+                            </div>
+                            <h4 class="font-bold text-gray-800 text-sm">Midjourney</h4>
+                            <p class="text-xs text-gray-600">Discord上で利用</p>
+                        </div>
+                        <div class="bg-white rounded-lg p-3 text-center">
+                            <div class="bg-teal-100 rounded-full p-2 w-10 h-10 flex items-center justify-center mx-auto mb-1">
+                                <i class="fas fa-paint-brush text-teal-600"></i>
+                            </div>
+                            <h4 class="font-bold text-gray-800 text-sm">Stable Diffusion</h4>
+                            <p class="text-xs text-gray-600">オープンソース</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Fun facts -->
+        <div class="grid grid-cols-2 gap-6 mb-2">
+            <div class="bg-pink-50 rounded-xl p-4">
+                <div class="flex items-center">
+                    <div class="bg-pink-100 rounded-full p-2 mr-3 flex-shrink-0">
+                        <i class="fas fa-magic text-pink-600"></i>
+                    </div>
+                    <p class="text-gray-700 text-sm">「プロンプトエンジニアリング」という、AIに良い画像を生成させるための指示文の書き方を研究する仕事まで生まれています！</p>
+                </div>
+            </div>
+            <div class="bg-green-50 rounded-xl p-4">
+                <div class="flex items-center">
+                    <div class="bg-green-100 rounded-full p-2 mr-3 flex-shrink-0">
+                        <i class="fas fa-lightbulb text-green-600"></i>
+                    </div>
+                    <p class="text-gray-700 text-sm">画像生成AIは、何百万枚もの画像を学習することで、「猫」や「夕焼け」がどんな見た目かを理解しています。</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Page number -->
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">13 / 20</span>
+        </div>
+    </div>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成AI活用入門 (大学生向け) - 無料ツールで画像生成！</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; font-family: 'M PLUS Rounded 1c', sans-serif; background-color: #f0f9ff; overflow: auto; }
+        .slide { width: 1280px; min-height: 720px; margin: 0 auto; position: relative; overflow: auto; background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%); /* Purple Gradient */ box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-radius: 12px; padding: 40px; display: flex; flex-direction: column; }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        .float-animation { animation: float 4s ease-in-out infinite; }
+        .tool-card { background: white; border-radius: 12px; padding: 20px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.3s; }
+        .tool-card:hover { transform: scale(1.05); }
+        .tool-logo { height: 50px; margin-bottom: 10px; object-fit: contain; }
+        .highlight { background-color: #e9d5ff; padding: 2px 5px; border-radius: 3px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-4xl font-bold text-purple-800">言葉で絵を描く時代!?<br>無料の画像生成AIを使ってみよう！</h1>
+            <div class="float-animation">
+                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f5bc.svg" alt="Framed picture emoji" class="w-16 h-16">
+            </div>
+        </div>
+
+        <div class="bg-white bg-opacity-70 rounded-xl p-3 mb-8 max-w-3xl mx-auto text-center">
+            <p class="text-xl text-gray-700">テキストから画像を自動生成！ レポートの挿絵、プレゼン資料、アイデアの視覚化に活用！</p>
+        </div>
+
+        <div class="flex-grow flex flex-col items-center justify-center">
+            <p class="text-lg text-center text-gray-800 mb-8">
+                「こんな画像があったらいいな」と思ったことはありませんか？<br>
+                生成AIを使えば、<span class="highlight text-purple-900">言葉で指示するだけでオリジナルの画像</span>を作成できます！
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-4xl">
+                <div class="tool-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Microsoft_Copilot_logo.svg/1024px-Microsoft_Copilot_logo.svg.png" alt="Microsoft Copilot Logo" class="tool-logo mx-auto">
+                    <h3 class="text-lg font-bold text-gray-800 mb-1">Microsoft Copilot</h3>
+                    <p class="text-sm text-gray-600">DALL-E 3ベースで高品質な画像をチャットで生成可能。</p>
+                </div>
+                <div class="tool-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Stable_Diffusion_logo.png/900px-Stable_Diffusion_logo.png?20231116163017" alt="Stable Diffusion Logo" class="tool-logo mx-auto" style="max-height: 45px;"> <h3 class="text-lg font-bold text-gray-800 mb-1">Stable Diffusion (Web UI)</h3>
+                    <p class="text-sm text-gray-600">無料で試せるWebサイト多数。カスタマイズ性が高い。</p>
+                </div>
+                 <div class="tool-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Canva_logo.svg/1024px-Canva_logo.svg.png" alt="Canva Logo" class="tool-logo mx-auto"> <h3 class="text-lg font-bold text-gray-800 mb-1">Canva AI Image Generator</h3>
+                    <p class="text-sm text-gray-600">デザインツール内で利用可。資料作成と連携しやすい。</p>
+                </div>
+            </div>
+
+            <p class="text-center mt-8 text-gray-700">
+                次のスライドから、基本的な使い方とそれぞれのツールの特徴を見ていきましょう！
+            </p>
+        </div>
+
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">15-1 / 20</span>
+        </div>
+    </div>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成AI活用入門 (大学生向け) - 画像生成の基本</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; font-family: 'M PLUS Rounded 1c', sans-serif; background-color: #f0f9ff; overflow: auto; }
+        .slide { width: 1280px; min-height: 720px; margin: 0 auto; position: relative; overflow: auto; background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%); /* Violet Gradient */ box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-radius: 12px; padding: 40px; display: flex; flex-direction: column; }
+        .interface-example { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 100%; display: flex; flex-direction: column; align-items: center; }
+        .prompt-input { width: 90%; border: 1px solid #ccc; border-radius: 6px; padding: 10px; margin-bottom: 10px; font-size: 0.9rem; }
+        .generate-button { background-color: #8b5cf6; color: white; border: none; border-radius: 8px; padding: 10px 25px; cursor: pointer; transition: background-color 0.3s; font-weight: bold; }
+        .generate-button:hover { background-color: #7c3aed; }
+        .image-placeholder { width: 80%; height: 200px; background-color: #f3f4f6; border: 1px dashed #d1d5db; border-radius: 8px; display: flex; align-items: center; justify-content: center; text-align: center; color: #6b7280; margin-top: 15px; }
+        .highlight { background-color: #ddd6fe; padding: 2px 5px; border-radius: 3px; font-weight: bold; }
+        .tip-box { background-color: #fef3c7; border-left: 4px solid #fcd34d; padding: 10px 15px; border-radius: 4px; margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-4xl font-bold text-violet-800">どうやって使うの？<br>「呪文 (プロンプト)」でイメージを伝えよう！</h1>
+            <i class="fas fa-magic text-violet-600 text-5xl"></i>
+        </div>
+
+         <div class="flex-grow flex flex-col items-center justify-center">
+            <p class="text-xl text-center text-gray-700 mb-8">
+                画像生成AIには、<span class="highlight text-violet-900">作りたい画像のイメージを言葉 (テキスト)</span> で伝えます。<br>
+                この指示のことを<span class="highlight text-violet-900">「プロンプト (Prompt)」</span>と言います。まるで魔法の呪文みたい！
+            </p>
+
+            <div class="interface-example mb-8">
+                 <p class="text-center text-gray-500 text-sm mb-4">(画像生成ツールのイメージ)</p>
+                 <textarea class="prompt-input" rows="3" placeholder="例: 夕暮れの海辺を歩く柴犬、写真風、背景をぼかす"></textarea>
+                 <button class="generate-button">
+                     <i class="fas fa-paint-brush mr-2"></i>画像を生成！
+                 </button>
+                 <div class="image-placeholder">
+                     <p>(ここに生成された画像が表示される)</p>
+                 </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md max-w-3xl w-full">
+                <h3 class="text-xl font-bold text-violet-700 mb-3"><i class="fas fa-lightbulb mr-2"></i>イメージ通りの画像を作るプロンプトのコツ</h3>
+                <p class="mb-4">詳細な情報を加えるほど、AIはイメージを理解しやすくなります。</p>
+                <ul class="list-disc list-inside space-y-1 text-gray-700">
+                    <li><span class="font-bold">被写体 (Subject):</span> 何を描いてほしいか？ (例: 猫、大学生、未来の都市、抽象的な形)</li>
+                    <li><span class="font-bold">行動・状況 (Action/Context):</span> 何をしている？どんな状況？ (例: 本を読んでいる、雨が降っている、実験をしている)</li>
+                    <li><span class="font-bold">背景・場所 (Setting):</span> どこにいる？背景は？ (例: 図書館、サイバーパンクな街、白い背景)</li>
+                    <li><span class="font-bold">スタイル・画風 (Style):</span> どんなタッチ？ (例: 写真風、アニメ風、水彩画、油絵、ピクセルアート、3Dレンダリング)</li>
+                    <li><span class="font-bold">雰囲気・感情 (Mood/Atmosphere):</span> 明るい、暗い、幻想的、エモい、など。</li>
+                    <li><span class="font-bold">色・光 (Color/Lighting):</span> 特定の色、ライティング (例: 暖色系、逆光、ネオンライト)</li>
+                    <li><span class="font-bold">構図 (Composition):</span> 広角、クローズアップ、俯瞰など。</li>
+                    <li><span class="font-bold">その他:</span> 有名なアーティスト名、特定のゲームや映画のタイトルなどを加えると、そのスタイルに似せることも（著作権に注意）。</li>
+                    <li><span class="font-bold">ネガティブプロンプト (Negative Prompt):</span> (ツールによる) 描いてほしくない要素を指定する。（例: 低品質、文字なし、人物なし）</li>
+                 </ul>
+                 <div class="tip-box">
+                     <p class="font-bold text-yellow-800 text-sm"><i class="fas fa-star mr-1"></i>プロンプトエンジニアリング！</p>
+                     <p class="text-sm text-yellow-900">良いプロンプトを作る技術は<span class="font-bold">「プロンプトエンジニアリング」</span>と呼ばれます。英語で指示する方が良い結果が出やすい場合も。色々試してコツを掴みましょう！</p>
+                 </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">15-2 / 20</span>
+        </div>
+    </div>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成AI活用入門 (大学生向け) - 実例① Copilot(画像生成)</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; font-family: 'M PLUS Rounded 1c', sans-serif; background-color: #f0f9ff; overflow: auto; }
+        .slide { width: 1280px; min-height: 720px; margin: 0 auto; position: relative; overflow: auto; background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); /* Light Blue/Sky Gradient */ box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-radius: 12px; padding: 40px; display: flex; flex-direction: column; }
+        .example-card { background-color: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 15px; }
+        .prompt-text { background-color: #f3f4f6; border: 1px solid #e5e7eb; padding: 8px 12px; border-radius: 6px; font-family: monospace; font-size: 0.85rem; margin-bottom: 10px; }
+        .image-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+        .image-placeholder { width: 100%; height: 150px; background-color: #e5e7eb; border-radius: 8px; display: flex; align-items: center; justify-content: center; text-align: center; color: #6b7280; font-size: 0.8rem; }
+        .try-button { display: inline-block; background-color: #0ea5e9; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; transition: background-color 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .try-button:hover { background-color: #0284c7; }
+    </style>
+</head>
+<body>
+     <div class="slide flex flex-col">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-4xl font-bold text-sky-900">生成AIの実例①：Microsoft Copilot</h1>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Microsoft_Copilot_logo.svg/1024px-Microsoft_Copilot_logo.svg.png" alt="Microsoft Copilot Logo" class="w-16 h-16">
+        </div>
+
+        <div class="text-center mb-6">
+             <p class="text-lg text-gray-800 mb-3">Microsoftアカウントで無料で利用可能。<br>内部でDALL-E 3という高性能モデルが使われており、<span class="font-bold">複雑な指示にも比較的強い</span>のが特徴。</p>
+            <a href="https://copilot.microsoft.com/" target="_blank" class="try-button">
+                <i class="fas fa-external-link-alt mr-2"></i>Microsoft Copilotを使ってみる (無料)
+            </a>
+        </div>
+
+        <div class="flex-grow flex flex-col items-center">
+            <h2 class="text-2xl font-bold text-center text-sky-800 mb-4">Copilotでの画像生成例</h2>
+
+            <div class="example-card w-full max-w-3xl">
+                <p class="font-semibold mb-1">プロンプト例 (研究室の猫):</p>
+                <p class="prompt-text">研究室で白衣を着て、フラスコを興味深そうに見つめている猫、リアルな写真スタイル、背景は少しぼかす</p>
+                <div class="image-grid">
+                    <div class="image-placeholder">(生成画像1のイメージ)</div>
+                    <div class="image-placeholder">(生成画像2のイメージ)</div>
+                    <div class="image-placeholder">(生成画像3のイメージ)</div>
+                    <div class="image-placeholder">(生成画像4のイメージ)</div>
+                </div>
+                 <p class="text-xs text-right text-gray-500 mt-1">※通常、複数の候補画像が生成されます</p>
+            </div>
+
+            <div class="example-card w-full max-w-3xl">
+                <p class="font-semibold mb-1">プロンプト例 (プレゼン表紙):</p>
+                <p class="prompt-text">プレゼンテーションの表紙に使える背景画像、青と緑を基調とした抽象的で未来的なデザイン、明るい雰囲気、文字を入れるスペースを考慮して</p>
+                <div class="image-grid">
+                    <div class="image-placeholder">(生成画像1のイメージ)</div>
+                    <div class="image-placeholder">(生成画像2のイメージ)</div>
+                    <div class="image-placeholder">(生成画像3のイメージ)</div>
+                    <div class="image-placeholder">(生成画像4のイメージ)</div>
+                </div>
+            </div>
+             <p class="text-center text-sm text-gray-700 mt-4">Copilotはチャット形式で「～の画像を作成して」と頼むだけで簡単に試せます！</p>
+        </div>
+
+
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">15-3 / 20</span>
+        </div>
+    </div>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成AI活用入門 (大学生向け) - 実例② Stable Diffusion</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; font-family: 'M PLUS Rounded 1c', sans-serif; background-color: #f0f9ff; overflow: auto; }
+        .slide { width: 1280px; min-height: 720px; margin: 0 auto; position: relative; overflow: auto; background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%); /* Violet light Gradient */ box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-radius: 12px; padding: 40px; display: flex; flex-direction: column; }
+        .example-card { background-color: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 15px; }
+        .prompt-text { background-color: #f3f4f6; border: 1px solid #e5e7eb; padding: 8px 12px; border-radius: 6px; font-family: monospace; font-size: 0.85rem; margin-bottom: 10px; }
+        .image-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+        .image-placeholder { width: 100%; height: 150px; background-color: #e5e7eb; border-radius: 8px; display: flex; align-items: center; justify-content: center; text-align: center; color: #6b7280; font-size: 0.8rem; }
+        .link-button { display: inline-block; background-color: #a78bfa; /* Violet-400 */ color: white; padding: 8px 15px; margin-top: 5px; margin-right: 5px; border-radius: 6px; text-decoration: none; font-size: 0.8rem; transition: background-color 0.3s; }
+        .link-button:hover { background-color: #8b5cf6; /* Violet-500 */ }
+    </style>
+</head>
+<body>
+     <div class="slide flex flex-col">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-4xl font-bold text-violet-900">生成AIの実例②：Stable Diffusion (Web版)</h1>
+             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Stable_Diffusion_logo.png/900px-Stable_Diffusion_logo.png?20231116163017" alt="Stable Diffusion Logo" class="w-auto h-12"> </div>
+
+        <div class="text-center mb-6">
+             <p class="text-lg text-gray-800 mb-3">オープンソースを基盤とした画像生成AI。様々なWebサイトやサービスで無料で試せる。<br><span class="font-bold">モデルや設定の自由度が高く、多様なスタイルの画像を生成できる</span>のが魅力。</p>
+             <p class="text-sm text-gray-600 mb-2">無料で試せるサイトの例 (利用条件や広告に注意):</p>
+             <div>
+                 <a href="https://stablediffusionweb.com/" target="_blank" class="link-button"><i class="fas fa-link mr-1"></i>Stable Diffusion Online</a>
+                 <a href="https://huggingface.co/spaces" target="_blank" class="link-button"><i class="fas fa-link mr-1"></i>Hugging Face Spaces (検索)</a>
+                 <a href="https://dreamstudio.ai/" target="_blank" class="link-button"><i class="fas fa-link mr-1"></i>DreamStudio (無料クレジット)</a>
+                 </div>
+        </div>
+
+        <div class="flex-grow flex flex-col items-center">
+            <h2 class="text-2xl font-bold text-center text-violet-800 mb-4">Stable Diffusionでの画像生成例</h2>
+
+            <div class="example-card w-full max-w-3xl">
+                <p class="font-semibold mb-1">プロンプト例 (大学生):</p>
+                <p class="prompt-text">a photorealistic portrait of a university student studying late at night in a library, warm lighting, detailed background, looking tired but focused</p>
+                <div class="image-grid">
+                    <div class="image-placeholder">(生成画像1のイメージ)</div>
+                    <div class="image-placeholder">(生成画像2のイメージ)</div>
+                </div>
+            </div>
+
+            <div class="example-card w-full max-w-3xl">
+                <p class="font-semibold mb-1">プロンプト例 (未来都市):</p>
+                <p class="prompt-text">an illustration of a futuristic city with flying cars and towering skyscrapers, neon lights, anime style, vibrant colors, cyberpunk aesthetic</p>
+                 <div class="image-grid">
+                    <div class="image-placeholder">(生成画像1のイメージ)</div>
+                    <div class="image-placeholder">(生成画像2のイメージ)</div>
+                </div>
+            </div>
+             <p class="text-center text-sm text-gray-700 mt-4">Stable Diffusionは、プロンプト以外にも<span class="font-bold">「ステップ数」「CFGスケール」</span>などのパラメータ調整や、<span class="font-bold">特定の画風に特化したモデル</span>の利用で、よりこだわった画像生成が可能です。</p>
+        </div>
+
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">15-4 / 20</span>
+        </div>
+    </div>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成AI活用入門 (大学生向け) - 実例③ Canva</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+     <style>
+        body { margin: 0; padding: 0; font-family: 'M PLUS Rounded 1c', sans-serif; background-color: #f0f9ff; overflow: auto; }
+        .slide { width: 1280px; min-height: 720px; margin: 0 auto; position: relative; overflow: auto; background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); /* Green Light Gradient */ box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-radius: 12px; padding: 40px; display: flex; flex-direction: column; }
+        .example-card { background-color: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 15px; }
+        .prompt-text { background-color: #f3f4f6; border: 1px solid #e5e7eb; padding: 8px 12px; border-radius: 6px; font-family: monospace; font-size: 0.85rem; margin-bottom: 10px; }
+        .image-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+        .image-placeholder { width: 100%; height: 150px; background-color: #e5e7eb; border-radius: 8px; display: flex; align-items: center; justify-content: center; text-align: center; color: #6b7280; font-size: 0.8rem; }
+        .try-button { display: inline-block; background-color: #22c55e; /* Green-500 */ color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; transition: background-color 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .try-button:hover { background-color: #16a34a; /* Green-600 */ }
+    </style>
+</head>
+<body>
+    <div class="slide flex flex-col">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-4xl font-bold text-green-800">生成AIの実例③：Canva AI<br>(Magic Media)</h1> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Canva_logo.svg/1024px-Canva_logo.svg.png" alt="Canva Logo" class="w-auto h-12">
+        </div>
+
+        <div class="text-center mb-6">
+             <p class="text-lg text-gray-800 mb-3">人気のデザインツール「Canva」内で使える画像生成機能 (Magic Media)。<br>操作が簡単で、<span class="font-bold">生成した画像をそのままプレゼン資料やポスター等に使える</span>のが最大の利点。</p>
+            <a href="https://www.canva.com/" target="_blank" class="try-button">
+                <i class="fas fa-external-link-alt mr-2"></i>Canvaを使ってみる (無料プランあり)
+            </a>
+             <p class="text-xs text-gray-500 mt-2">※画像生成機能には無料利用枠があります。</p>
+        </div>
+
+        <div class="flex-grow flex flex-col items-center">
+            <h2 class="text-2xl font-bold text-center text-green-700 mb-4">Canvaでの画像生成例</h2>
+
+            <div class="example-card w-full max-w-3xl">
+                <p class="font-semibold mb-1">プロンプト例 (プレゼン背景):</p>
+                <p class="prompt-text">プレゼンテーションの背景素材、落ち着いた青系のグラデーション、ミニマル、抽象的</p>
+                <div class="image-grid">
+                    <div class="image-placeholder">(生成画像1のイメージ)</div>
+                    <div class="image-placeholder">(生成画像2のイメージ)</div>
+                    <div class="image-placeholder">(生成画像3のイメージ)</div>
+                    <div class="image-placeholder">(生成画像4のイメージ)</div>
+                </div>
+            </div>
+
+            <div class="example-card w-full max-w-3xl">
+                <p class="font-semibold mb-1">プロンプト例 (サークルポスター素材):</p>
+                <p class="prompt-text">大学のサークル活動のポスターに使えるイラスト、様々な人種の学生が笑顔で話している様子、フラットデザインスタイル、明るい色使い</p>
+                 <div class="image-grid">
+                    <div class="image-placeholder">(生成画像1のイメージ)</div>
+                    <div class="image-placeholder">(生成画像2のイメージ)</div>
+                     <div class="image-placeholder">(生成画像3のイメージ)</div>
+                    <div class="image-placeholder">(生成画像4のイメージ)</div>
+                </div>
+            </div>
+             <p class="text-center text-sm text-gray-700 mt-4">Canvaでは、生成したい<span class="font-bold">画像のスタイル（写真、水彩画、3Dなど）</span>や<span class="font-bold">縦横比</span>も簡単に選択できます。</p>
+        </div>
+
+
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">15-5 / 20</span>
+        </div>
+    </div>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成AI活用入門 (大学生向け) - 画像生成の注意点</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+     <style>
+        body { margin: 0; padding: 0; font-family: 'M PLUS Rounded 1c', sans-serif; background-color: #f0f9ff; overflow: auto; }
+        .slide { width: 1280px; min-height: 720px; margin: 0 auto; position: relative; overflow: auto; background: linear-gradient(135deg, #f5f5f5 0%, #e5e5e5 100%); /* Gray Gradient */ box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-radius: 12px; padding: 40px; display: flex; flex-direction: column; }
+        .caution-card { background: white; border-left: 5px solid #f87171; padding: 15px; margin-bottom: 15px; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .caution-title { color: #dc2626; font-weight: bold; margin-bottom: 5px; }
+        .summary-box { background-color: #ecfdf5; /* Green-50 */ border: 1px solid #a7f3d0; /* Green-200 */ border-radius: 8px; padding: 20px; text-align: center; }
+    </style>
+</head>
+<body>
+     <div class="slide flex flex-col">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-4xl font-bold text-gray-800">画像生成AIを使うときの注意点</h1>
+             <i class="fas fa-exclamation-triangle text-yellow-500 text-5xl"></i>
+        </div>
+
+        <div class="flex-grow flex flex-col items-center justify-center">
+             <p class="text-xl text-center text-gray-700 mb-8">
+                画像生成AIは創造性を刺激するツールですが、利用には特に注意が必要です。
+            </p>
+
+            <div class="w-full max-w-3xl mb-8">
+                <h2 class="text-2xl font-bold text-center text-red-700 mb-4"><i class="fas fa-gavel mr-2"></i>権利と倫理に関する重要事項</h2>
+
+                 <div class="caution-card">
+                     <p class="caution-title"><i class="fas fa-copyright mr-1"></i>著作権・肖像権に注意！</p>
+                     <p class="text-sm text-gray-700">生成された画像の著作権の扱いは非常に複雑で、ツールや国によっても異なります。<span class="font-bold">特定のアーティスト風の画像、実在の人物やキャラクターに酷似した画像の生成・利用は権利侵害のリスク</span>があります。<span class="font-bold">商用利用の可否</span>もツールごとに定められているため、<span class="font-bold">必ず利用規約を確認</span>してください。</p>
+                 </div>
+
+                 <div class="caution-card">
+                     <p class="caution-title"><i class="fas fa-balance-scale mr-1"></i>倫理的な利用を心がける</p>
+                     <p class="text-sm text-gray-700">差別的、暴力的、性的なコンテンツ、または他者を傷つけるような画像の生成は、多くのツールで禁止されています。<span class="font-bold">フェイク画像の作成・拡散など、悪用は絶対にしないでください</span>。社会的な責任を持って利用しましょう。</p>
+                 </div>
+
+                <div class="caution-card">
+                     <p class="caution-title"><i class="fas fa-image mr-1"></i>意図通りの画像が出るとは限らない</p>
+                     <p class="text-sm text-gray-700">プロンプトを工夫しても、必ずしもイメージ通りの画像が生成されるわけではありません。指の形がおかしい、文字が読めないなど、<span class="font-bold">不自然な点が含まれることも多い</span>です。何度も試行錯誤が必要です。</p>
+                 </div>
+
+                 <div class="caution-card">
+                     <p class="caution-title"><i class="fas fa-info-circle mr-1"></i>画像は「情報」ではない</p>
+                     <p class="text-sm text-gray-700">生成された画像は、あくまでAIが作り出した「創造物」です。写真のように見えても、<span class="font-bold">事実や現実を正確に反映しているとは限りません</span>。情報源として扱うのは危険です。</p>
+                 </div>
+                 <div class="caution-card">
+                     <p class="caution-title"><i class="fas fa-lock mr-1"></i>個人情報・機密情報は入力しない</p>
+                     <p class="text-sm text-gray-700">プロンプトに<span class="font-bold">個人が特定できる情報や、機密性の高い情報を入力しない</span>ようにしましょう。</p>
+                 </div>
+            </div>
+
+            <div class="summary-box max-w-3xl w-full">
+                 <h2 class="text-2xl font-bold text-green-800 mb-3"><i class="fas fa-check-circle mr-2"></i>まとめ：創造性を広げるツールとして活用！</h2>
+                 <p class="text-gray-700">
+                     画像生成AIは、<span class="font-bold">アイデアを視覚化</span>したり、<span class="font-bold">デザイン作業を効率化</span>したりする上で非常に役立ちます。<br>
+                     ただし、<span class="font-bold">著作権や倫理的な問題</span>には特に注意が必要です。<br>
+                     ルールとマナーを守り、<span class="font-bold">自分の創造性をサポートするツール</span>として、賢く、そして<span class="font-bold">責任を持って</span>活用していきましょう！
+                 </p>
+            </div>
+
+        </div>
+
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">15-6 / 20</span>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIの基礎 (中高生向け) - AIの学習方法</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Rounded Mplus 1c', 'M PLUS Rounded 1c', 'Kosugi Maru', sans-serif;
+            background-color: #f0f9ff;
+            overflow: auto;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            margin: 0 auto;
+            position: relative;
+            overflow: auto;
+            background: linear-gradient(135deg, #e0f7fa 0%, #bbdefb 100%);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            padding: 40px;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .float-animation {
+            animation: float 4s ease-in-out infinite;
+        }
+        .learning-card {
+            border-radius: 16px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            overflow: auto;
+        }
+        .learning-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body>
+    <div class="slide flex flex-col">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-4xl font-bold text-indigo-800">AIの学習方法</h1>
+            <div class="float-animation">
+                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9d1-200d-1f3eb.svg" alt="Teacher emoji" class="w-16 h-16">
+            </div>
+        </div>
+        
+        <!-- Subtitle -->
+        <div class="bg-white bg-opacity-70 rounded-xl p-3 mb-6 max-w-xl mx-auto text-center">
+            <p class="text-xl text-gray-700">AIにはいろんな学び方があるんです！</p>
+        </div>
+        
+        <!-- Main content - Types of Machine Learning -->
+        <div class="grid grid-cols-3 gap-8 mb-6">
+            <!-- Supervised Learning -->
+            <div class="learning-card bg-green-50 flex flex-col h-full">
+                <div class="bg-green-100 p-4 flex justify-center">
+                    <div class="float-animation">
+                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f468-200d-1f3eb.svg" alt="Teacher emoji" class="w-20 h-20">
+                    </div>
+                </div>
+                <div class="p-5 flex-1 flex flex-col">
+                    <h3 class="text-xl font-bold text-green-700 mb-3">教師あり学習</h3>
+                    <p class="text-gray-700 mb-3">先生が「正解」を教えながら学ぶ方法</p>
+                    <div class="bg-white rounded-lg p-3 mt-auto">
+                        <div class="flex items-start mb-2">
+                            <div class="bg-green-100 rounded-full p-1 mr-2 flex-shrink-0">
+                                <i class="fas fa-check text-green-600 text-xs"></i>
+                            </div>
+                            <p class="text-gray-700 text-sm">「これはリンゴ、これはバナナ」と教えてもらう</p>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-green-100 rounded-full p-1 mr-2 flex-shrink-0">
+                                <i class="fas fa-check text-green-600 text-xs"></i>
+                            </div>
+                            <p class="text-gray-700 text-sm">スパムメールの判定、顔認識など</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Unsupervised Learning -->
+            <div class="learning-card bg-blue-50 flex flex-col h-full">
+                <div class="bg-blue-100 p-4 flex justify-center">
+                    <div class="float-animation">
+                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9d1-200d-1f4bb.svg" alt="Detective emoji" class="w-20 h-20">
+                    </div>
+                </div>
+                <div class="p-5 flex-1 flex flex-col">
+                    <h3 class="text-xl font-bold text-blue-700 mb-3">教師なし学習</h3>
+                    <p class="text-gray-700 mb-3">自分でパターンを発見する方法</p>
+                    <div class="bg-white rounded-lg p-3 mt-auto">
+                        <div class="flex items-start mb-2">
+                            <div class="bg-blue-100 rounded-full p-1 mr-2 flex-shrink-0">
+                                <i class="fas fa-check text-blue-600 text-xs"></i>
+                            </div>
+                            <p class="text-gray-700 text-sm">色々な果物を見て、自分で似たグループに分ける</p>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-blue-100 rounded-full p-1 mr-2 flex-shrink-0">
+                                <i class="fas fa-check text-blue-600 text-xs"></i>
+                            </div>
+                            <p class="text-gray-700 text-sm">顧客グループ分け、異常検知など</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Reinforcement Learning -->
+            <div class="learning-card bg-purple-50 flex flex-col h-full">
+                <div class="bg-purple-100 p-4 flex justify-center">
+                    <div class="float-animation">
+                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3c6.svg" alt="Trophy emoji" class="w-20 h-20">
+                    </div>
+                </div>
+                <div class="p-5 flex-1 flex flex-col">
+                    <h3 class="text-xl font-bold text-purple-700 mb-3">強化学習</h3>
+                    <p class="text-gray-700 mb-3">ご褒美とペナルティで学ぶ方法</p>
+                    <div class="bg-white rounded-lg p-3 mt-auto">
+                        <div class="flex items-start mb-2">
+                            <div class="bg-purple-100 rounded-full p-1 mr-2 flex-shrink-0">
+                                <i class="fas fa-check text-purple-600 text-xs"></i>
+                            </div>
+                            <p class="text-gray-700 text-sm">良い行動には「ご褒美」、悪い行動には「罰」</p>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-purple-100 rounded-full p-1 mr-2 flex-shrink-0">
+                                <i class="fas fa-check text-purple-600 text-xs"></i>
+                            </div>
+                            <p class="text-gray-700 text-sm">ゲームAI、ロボット制御など</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Example illustration -->
+        <div class="bg-white bg-opacity-70 rounded-xl p-4 max-w-4xl mx-auto">
+            <div class="flex items-center">
+                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4a1.svg" alt="Lightbulb emoji" class="w-12 h-12 mr-4">
+                <div>
+                    <h4 class="font-bold text-indigo-800 mb-1">例えば...</h4>
+                    <p class="text-gray-700">もしAIにサッカーを教えるなら：</p>
+                    <ul class="text-gray-700 text-sm mt-2">
+                        <li class="mb-1">・<span class="text-green-700 font-medium">教師あり</span>：正しい動きのビデオを見せて「これが正解」と教える</li>
+                        <li class="mb-1">・<span class="text-blue-700 font-medium">教師なし</span>：たくさんの試合映像を見せて、自分でパターンを見つけさせる</li>
+                        <li>・<span class="text-purple-700 font-medium">強化学習</span>：ゴールを決めたら「ポイント」、ミスしたら「減点」で練習させる</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Page number -->
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">6 / 20</span>
+        </div>
+    </div>
+</body>
+</html>

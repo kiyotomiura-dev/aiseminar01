@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIの基礎 (中高生向け) - 身の回りのAI</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Rounded Mplus 1c', 'M PLUS Rounded 1c', 'Kosugi Maru', sans-serif;
+            background-color: #f0f9ff;
+            overflow: auto;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            margin: 0 auto;
+            position: relative;
+            overflow: auto;
+            background: linear-gradient(135deg, #e0f7fa 0%, #bbdefb 100%);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            padding: 40px;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .float-animation {
+            animation: float 4s ease-in-out infinite;
+        }
+        .ai-example-card {
+            border-radius: 16px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            overflow: auto;
+        }
+        .ai-example-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+        }
+        .card-icon {
+            transition: all 0.3s;
+        }
+        .ai-example-card:hover .card-icon {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="slide flex flex-col">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-4xl font-bold text-indigo-800">身の回りのAI</h1>
+            <div class="float-animation">
+                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f50d.svg" alt="Magnifying glass emoji" class="w-16 h-16">
+            </div>
+        </div>
+        
+        <!-- Subtitle -->
+        <div class="bg-white bg-opacity-70 rounded-xl p-3 mb-8 max-w-lg mx-auto text-center">
+            <p class="text-xl text-gray-700">実は私たちの生活の中にはもうたくさんのAIがいます！</p>
+        </div>
+        
+        <!-- Main content - AI Examples Grid -->
+        <div class="grid grid-cols-3 gap-6 mb-6">
+            <!-- Smartphone AI -->
+            <div class="ai-example-card bg-pink-50">
+                <div class="bg-pink-100 p-4 flex justify-center">
+                    <div class="card-icon">
+                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4f1.svg" alt="Smartphone emoji" class="w-20 h-20">
+                    </div>
+                </div>
+                <div class="p-4">
+                    <h3 class="text-xl font-bold text-pink-600 mb-2">スマホの顔認証</h3>
+                    <p class="text-gray-700">あなたの顔を記憶して、本人かどうかを判断してくれる</p>
+                </div>
+            </div>
+            
+            <!-- Voice Assistant -->
+            <div class="ai-example-card bg-purple-50">
+                <div class="bg-purple-100 p-4 flex justify-center">
+                    <div class="card-icon">
+                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f399.svg" alt="Microphone emoji" class="w-20 h-20">
+                    </div>
+                </div>
+                <div class="p-4">
+                    <h3 class="text-xl font-bold text-purple-600 mb-2">音声アシスタント</h3>
+                    <p class="text-gray-700">「OK Google」「Hey Siri」で話しかけると答えてくれる</p>
+                </div>
+            </div>
+            
+            <!-- Map App -->
+            <div class="ai-example-card bg-blue-50">
+                <div class="bg-blue-100 p-4 flex justify-center">
+                    <div class="card-icon">
+                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f5fa.svg" alt="Map emoji" class="w-20 h-20">
+                    </div>
+                </div>
+                <div class="p-4">
+                    <h3 class="text-xl font-bold text-blue-600 mb-2">地図アプリ</h3>
+                    <p class="text-gray-700">渋滞を予測して、最適なルートを教えてくれる</p>
+                </div>
+            </div>
+            
+            <!-- SNS -->
+            <div class="ai-example-card bg-green-50">
+                <div class="bg-green-100 p-4 flex justify-center">
+                    <div class="card-icon">
+                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4f8.svg" alt="Camera with flash emoji" class="w-20 h-20">
+                    </div>
+                </div>
+                <div class="p-4">
+                    <h3 class="text-xl font-bold text-green-600 mb-2">SNSのフィルター</h3>
+                    <p class="text-gray-700">写真に自動でエフェクトをかけたり、顔を認識する</p>
+                </div>
+            </div>
+            
+            <!-- Recommendation -->
+            <div class="ai-example-card bg-red-50">
+                <div class="bg-red-100 p-4 flex justify-center">
+                    <div class="card-icon">
+                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4fa.svg" alt="TV emoji" class="w-20 h-20">
+                    </div>
+                </div>
+                <div class="p-4">
+                    <h3 class="text-xl font-bold text-red-600 mb-2">動画のおすすめ</h3>
+                    <p class="text-gray-700">あなたの好みを学習して、見たい動画を提案してくれる</p>
+                </div>
+            </div>
+            
+            <!-- Auto-correction -->
+            <div class="ai-example-card bg-yellow-50">
+                <div class="bg-yellow-100 p-4 flex justify-center">
+                    <div class="card-icon">
+                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/2328.svg" alt="Keyboard emoji" class="w-20 h-20">
+                    </div>
+                </div>
+                <div class="p-4">
+                    <h3 class="text-xl font-bold text-yellow-600 mb-2">予測変換</h3>
+                    <p class="text-gray-700">文章を予測して、次に入力する言葉を提案してくれる</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Did you know box -->
+        <div class="bg-indigo-50 rounded-xl p-4 max-w-xl mx-auto">
+            <div class="flex items-center">
+                <div class="bg-indigo-100 rounded-full p-2 mr-3 flex-shrink-0">
+                    <i class="fas fa-question text-indigo-600"></i>
+                </div>
+                <p class="text-gray-700">あなたは今日、何個のAIと関わりましたか？思ったより多いかもしれませんね！</p>
+            </div>
+        </div>
+        
+        <!-- Page number -->
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">4 / 20</span>
+        </div>
+    </div>
+</body>
+</html>

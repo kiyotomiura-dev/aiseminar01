@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成AIモデル④ (中高生向け) - 拡散モデル【図解つき】</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; font-family: 'M PLUS Rounded 1c', sans-serif; background-color: #f0f9ff; overflow: auto; }
+        .slide { width: 1280px; min-height: 720px; margin: 0 auto; position: relative; overflow: auto; /* スクロール可能に変更 */ background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); /* Blue Gradient */ box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-radius: 12px; padding: 40px; display: flex; flex-direction: column; }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        .float-animation { animation: float 4s ease-in-out infinite; }
+        .learn-card { border-radius: 16px; box-shadow: 0 8px 16px rgba(0,0,0,0.08); transition: all 0.3s; background-color: white; display: flex; flex-direction: column; }
+        .learn-card:hover { transform: translateY(-5px); box-shadow: 0 12px 24px rgba(0,0,0,0.12); }
+        .card-content { flex-grow: 1; padding: 24px; }
+        .card-footer { padding: 16px 24px; background-color: rgba(0, 0, 0, 0.03); border-top: 1px solid rgba(0,0,0,0.05); margin-top: auto; }
+        .twemoji { width: 3rem; height: 3rem; }
+         /* 図解用スタイル */
+        .process-container { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; }
+        .step-image { border: 1px solid #bfdbfe; /* Blue-200 */ padding: 5px; background-color: #f0f9ff; /* Blue-50 */ border-radius: 6px; width: 80px; /* 画像サイズ調整 */ height: 80px; display: flex; align-items: center; justify-content: center; font-size: 2rem; /* アイコン用 */ }
+        .step-image.noise { background: repeating-linear-gradient( 45deg, #d1d5db, #d1d5db 5px, #e5e7eb 5px, #e5e7eb 10px ); /* ノイズ風背景 */ color: #9ca3af; }
+        .arrow { font-size: 1.5rem; color: #93c5fd; /* Blue-300 */ margin: 0 10px; }
+        .highlight { background-color: #a7f3d0; padding: 2px 5px; border-radius: 3px; font-weight: bold; }
+        .example-icon { font-size: 1.5rem; width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; margin-right: 8px; }
+        .prompt-box { border: 2px dashed #facc15; /* Yellow-400 */ background-color: #fefce8; /* Yellow-50 */ padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; text-align: center; margin-top: 5px; color: #ca8a04; /* Yellow-600 */ font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="flex justify-between items-center mb-4">
+             <h1 class="text-4xl font-bold text-blue-800">生成AIモデル④：拡散モデル<br>〜ノイズから美を生み出す魔法使い！〜</h1>
+            <div class="float-animation">
+                 <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9d9.svg" alt="Mage emoji" class="w-16 h-16"> </div>
+        </div>
+
+        <div class="flex-grow flex flex-col items-center justify-center"> <div class="learn-card max-w-4xl w-full mb-6"> <div class="card-content">
+                    <div class="flex items-center mb-4">
+                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f5bc.svg" alt="Framed picture emoji" class="twemoji mr-3">
+                        <h2 class="text-2xl font-bold text-blue-700">拡散モデル (Diffusion Models)</h2>
+                    </div>
+                    <p class="text-gray-800 mb-4">
+                        <span class="font-bold">どんなAI？:</span> まるで魔法のように、<span class="highlight text-green-900">ただのノイズ（砂嵐みたいなもの）</span>から、少しずつ<span class="highlight text-green-900">本物そっくりの美しい画像</span>を作り出すAIだよ！ 最近の画像生成AIで主流になっている技術なんだ。
+                    </p>
+
+                    <div class="mt-6 border-t pt-4">
+                        <h3 class="text-lg font-semibold text-center text-gray-700 mb-4">拡散モデルのしくみ：ノイズを操る魔法！</h3>
+
+                        <div class="mb-6">
+                             <h4 class="font-bold text-center text-blue-600 mb-2">ステップ1：お手本画像をわざと壊す練習 (拡散過程)</h4>
+                             <p class="text-xs text-center text-gray-600 mb-3">まずAIは、きれいな画像に少しずつノイズを加えて、最終的に完全なノイズにする「壊し方」を学ぶよ。</p>
+                            <div class="process-container">
+                                <div class="step-image"><i class="fas fa-cat text-yellow-500"></i></div> <i class="fas fa-arrow-right arrow"></i>
+                                <div class="step-image opacity-70"><i class="fas fa-cat text-yellow-500"></i><span class="text-xs absolute mix-blend-multiply">...ノイズ...</span></div>
+                                <i class="fas fa-arrow-right arrow"></i>
+                                <div class="step-image opacity-40"><i class="fas fa-cat text-yellow-500"></i><span class="text-xs absolute mix-blend-multiply">ノイズ多い</span></div>
+                                <i class="fas fa-arrow-right arrow"></i>
+                                <div class="step-image noise"><i class="fas fa-question"></i></div> </div>
+                            <p class="text-xs text-center text-gray-500">きれいな画像 → 少しノイズ → もっとノイズ → 完全なノイズ</p>
+                        </div>
+
+                        <div class="border-t pt-6">
+                             <h4 class="font-bold text-center text-purple-600 mb-2">ステップ2：ノイズから画像を復元！ (逆拡散過程 / 生成)</h4>
+                             <p class="text-xs text-center text-gray-600 mb-3">学習が終わったら、今度は逆再生！ AIは学んだ「壊し方の逆」をたどって、ノイズから少しずつ元の画像を復元（＝新しい画像を生成）していくんだ。</p>
+                              <div class="prompt-box max-w-md mx-auto mb-3">
+                                 <i class="fas fa-comment-dots mr-1"></i> 指示テキスト (プロンプト) がお手伝い！<br>「宇宙服を着た猫」のように指示すると、それに合った画像を生成してくれる！
+                             </div>
+                             <div class="process-container">
+                                 <div class="step-image noise"><i class="fas fa-question"></i></div> <i class="fas fa-arrow-right arrow text-purple-400"></i>
+                                 <div class="step-image opacity-40"><i class="fas fa-user-astronaut text-gray-500"></i><span class="text-xs absolute mix-blend-multiply">形が..?</span></div> <i class="fas fa-arrow-right arrow text-purple-400"></i>
+                                  <div class="step-image opacity-70"><i class="fas fa-user-astronaut text-gray-700"></i><i class="fas fa-cat text-yellow-600 absolute mix-blend-overlay opacity-50 text-sm"></i></div> <i class="fas fa-arrow-right arrow text-purple-400"></i>
+                                 <div class="step-image"><i class="fas fa-user-astronaut text-gray-800"></i><i class="fas fa-cat text-yellow-500 absolute text-lg" style="transform: translate(2px, 2px);"></i></div> </div>
+                             <p class="text-xs text-center text-gray-500">完全なノイズ → 少し形が → だいぶクッキリ → 完成！</p>
+                        </div>
+
+                        <p class="text-sm text-center text-gray-700 mt-6">
+                           この「ノイズ除去」のステップを何度も繰り返すことで、<span class="font-bold">驚くほど高品質で、指示に合った多様な画像</span>を作り出すことができるんだ！
+                        </p>
+                    </div>
+                    </div>
+                 </div>
+
+            <div class="w-full max-w-4xl mt-0"> <div class="bg-white p-6 rounded-lg shadow-md">
+                     <h3 class="text-lg font-semibold text-center text-gray-700 mb-4">拡散モデルはこんなにスゴイ！活用例</h3>
+                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                         <div class="flex items-center bg-blue-50 p-3 rounded-lg">
+                             <span class="example-icon bg-blue-200 text-blue-700"><i class="fas fa-file-alt"></i> <i class="fas fa-long-arrow-alt-right mx-1"></i> <i class="fas fa-image"></i></span>
+                             <div>
+                                 <p class="font-bold text-blue-800">テキストから画像生成</p>
+                                 <p class="text-xs text-gray-700">「夕焼け空を飛ぶドラゴン」のような言葉からリアルな絵やイラストを作る！ (例: Stable Diffusion, Midjourney, DALL-E 3)</p>
+                             </div>
+                         </div>
+                         <div class="flex items-center bg-green-50 p-3 rounded-lg">
+                             <span class="example-icon bg-green-200 text-green-700"><i class="fas fa-edit"></i></span>
+                             <div>
+                                 <p class="font-bold text-green-800">画像編集 (修正・拡張)</p>
+                                 <p class="text-xs text-gray-700">写真から邪魔なものを消したり、画像の続きを自然に描き足したりできる！ (Inpainting/Outpainting)</p>
+                             </div>
+                         </div>
+                          <div class="flex items-center bg-purple-50 p-3 rounded-lg">
+                             <span class="example-icon bg-purple-200 text-purple-700"><i class="fas fa-search-plus"></i></span>
+                             <div>
+                                 <p class="font-bold text-purple-800">画像の高画質化</p>
+                                 <p class="text-xs text-gray-700">古い写真や小さい画像を、くっきりキレイな大きな画像にする！ (Super-Resolution)</p>
+                             </div>
+                         </div>
+                         <div class="flex items-center bg-pink-50 p-3 rounded-lg">
+                             <span class="example-icon bg-pink-200 text-pink-700"><i class="fas fa-palette"></i></span>
+                             <div>
+                                 <p class="font-bold text-pink-800">スタイル変換</p>
+                                 <p class="text-xs text-gray-700">普通の写真を、アニメ風、水彩画風、有名画家の画風などに変身させる！</p>
+                             </div>
+                         </div>
+                          <div class="flex items-center bg-yellow-50 p-3 rounded-lg">
+                             <span class="example-icon bg-yellow-200 text-yellow-700"><i class="fas fa-film"></i></span>
+                             <div>
+                                 <p class="font-bold text-yellow-800">動画生成 (研究中)</p>
+                                 <p class="text-xs text-gray-700">言葉から短い動画クリップを作り出す技術も進化中！</p>
+                             </div>
+                         </div>
+                     </div>
+                     <p class="text-sm text-center text-gray-700 mt-4 font-semibold">
+                         アイデア次第で色々なものが作れる、可能性に満ちたAIなんだ！
+                     </p>
+                </div>
+            </div>
+
+
+            <div class="mt-6 bg-blue-50 p-4 rounded-lg max-w-3xl text-center">
+                <p class="font-bold text-blue-800"><i class="fas fa-lightbulb mr-1"></i>ここがポイント！</p>
+                <p class="text-sm text-gray-700">拡散モデルは、<span class="font-bold">ノイズから画像を生成する</span>というユニークな方法で、非常に<span class="font-bold">高品質で多様性に富んだ</span>画像を生成できるのが最大の強み。テキストによる<span class="font-bold">コントロールもしやすい</span>ため、様々な応用が期待されているよ！</p>
+            </div>
+        </div>
+
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">13 / 20</span> </div>
+    </div>
+</body>
+</html>

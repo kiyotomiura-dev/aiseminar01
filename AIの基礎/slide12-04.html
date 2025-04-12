@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成AI活用入門 (大学生向け) - 実例② Gemini</title> <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; font-family: 'M PLUS Rounded 1c', sans-serif; background-color: #f0f9ff; overflow: auto; }
+        .slide { width: 1280px; min-height: 720px; margin: 0 auto; position: relative; overflow: auto; background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%); /* Indigo Gradient */ box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-radius: 12px; padding: 40px; display: flex; flex-direction: column; }
+        .chat-card { border-radius: 16px; box-shadow: 0 8px 16px rgba(0,0,0,0.08); background-color: #eef2ff; }
+        .chat-bubble { border-radius: 18px; position: relative; }
+        .user-bubble { background-color: #c7d2fe; }
+        .ai-bubble { background-color: #f1f5f9; border: 1px solid #e2e8f0; }
+        .try-button { display: inline-block; background-color: #4f46e5; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; transition: background-color 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .try-button:hover { background-color: #4338ca; }
+        .search-result { border: 1px solid #ccc; padding: 8px; margin-top: 5px; border-radius: 4px; background-color: #fff; }
+        .search-result p { font-size: 0.8rem; }
+        .search-result a { font-size: 0.75rem; color: #4f46e5; }
+
+    </style>
+</head>
+<body>
+     <div class="slide flex flex-col">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-4xl font-bold text-indigo-900">生成AIの実例②：Gemini</h1>
+             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Google_Gemini_logo.svg/1200px-Google_Gemini_logo.svg.png" alt="Gemini Logo" class="w-16 h-16">
+        </div>
+
+        <div class="text-center mb-6">
+             <p class="text-lg text-gray-800 mb-3">Googleが開発したAI。Google検索の技術も活かされており、<br>最新の情報を含んだ回答や、アイデアの整理などが得意な場合も。</p>
+            <a href="https://gemini.google.com/" target="_blank" class="try-button">
+                <i class="fas fa-external-link-alt mr-2"></i>Geminiを使ってみる (無料)
+            </a>
+             <p class="text-xs text-gray-600 mt-2">※利用にはGoogleアカウントが必要です。</p>
+        </div>
+
+        <div class="flex-grow flex justify-center">
+            <div class="chat-card p-6 w-full max-w-3xl">
+                 <p class="text-center text-gray-500 text-sm mb-4">(会話の例)</p>
+                <div class="flex mb-4 items-start">
+                    <div class="bg-indigo-200 rounded-full p-2 w-10 h-10 flex items-center justify-center mr-3 flex-shrink-0">
+                        <i class="fas fa-user text-indigo-700"></i>
+                    </div>
+                    <div class="chat-bubble user-bubble p-3 flex-1">
+                        <p class="text-gray-900">再生可能エネルギーに関する最新の研究動向について知りたいです。特に太陽光発電の効率向上と、洋上風力発電のコスト削減に関する技術革新について、最近のニュースや論文をいくつか引用しながら概要を教えてください。</p> </div>
+                </div>
+
+                <div class="flex items-start">
+                    <div class="bg-slate-200 rounded-full p-2 w-10 h-10 flex items-center justify-center mr-3 flex-shrink-0">
+                        <i class="fas fa-robot text-slate-600"></i>
+                    </div>
+                    <div class="chat-bubble ai-bubble p-4 flex-1">
+                        <p class="text-gray-800 mb-3 font-semibold">再生可能エネルギーに関する最新の研究動向ですね。太陽光発電の効率向上と洋上風力発電のコスト削減について、最近の情報を元に概要をまとめます。</p>
+
+                        <div class="mb-3">
+                            <p class="font-bold text-indigo-700">【太陽光発電の効率向上】</p>
+                            <ul class="list-disc list-inside space-y-1 text-sm text-gray-700">
+                                <li><span class="font-semibold">ペロブスカイト太陽電池:</span> 低コストで製造可能でありながら、シリコン型に匹敵、あるいはそれを超える変換効率が報告されており、実用化に向けた研究開発が活発です。[参照: ○○大学の研究(2024)]</li>
+                                <li><span class="font-semibold">タンデム型太陽電池:</span> 異なる材料を組み合わせることで、より幅広い波長の光を電力に変換し、理論限界効率を高める研究が進んでいます。[参照: ××エネルギー研究所の発表(2025)]</li>
+                                <li><span class="font-semibold">AIによる材料探索:</span> 新しい太陽電池材料や構造をAIが予測・設計する研究も行われています。</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <p class="font-bold text-green-700">【洋上風力発電のコスト削減】</p>
+                            <ul class="list-disc list-inside space-y-1 text-sm text-gray-700">
+                                <li><span class="font-semibold">大型風車の開発:</span> 1基あたりの発電量を増やすことで、設置・運用コストを相対的に下げる動きがあります。ブレードの大型化などが進んでいます。[参照: △△重工の技術(2024)]</li>
+                                <li><span class="font-semibold">浮体式基礎の技術革新:</span> 深い海域にも設置可能な浮体式の低コスト化・量産化技術が重要視されています。[参照: □□国際会議(2025)]</li>
+                                <li><span class="font-semibold">サプライチェーンの最適化:</span> 部材製造から設置、メンテナンスまでのサプライチェーン全体での効率化・コストダウンが進められています。</li>
+                             </ul>
+                        </div>
+                         <p class="text-xs text-gray-500 mt-3">上記は概要であり、さらに詳しい情報や最新の研究論文については、学術データベース (Google Scholar, CiNiiなど) で関連キーワードを検索することをお勧めします。 (※Geminiは時にWeb検索結果を要約して提示することがあります)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">14-4 / 20</span>
+        </div>
+    </div>
+</body>
+</html>

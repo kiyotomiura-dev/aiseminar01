@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成AIモデル③ (中高生向け) - Transformer【図解つき】</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; font-family: 'M PLUS Rounded 1c', sans-serif; background-color: #f0f9ff; overflow: auto; }
+        .slide { width: 1280px; min-height: 720px; margin: 0 auto; position: relative; overflow: auto; background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); /* Green Gradient */ box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-radius: 12px; padding: 40px; display: flex; flex-direction: column; }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        .float-animation { animation: float 4s ease-in-out infinite; }
+        .learn-card { border-radius: 16px; box-shadow: 0 8px 16px rgba(0,0,0,0.08); transition: all 0.3s; background-color: white; display: flex; flex-direction: column; }
+        .learn-card:hover { transform: translateY(-5px); box-shadow: 0 12px 24px rgba(0,0,0,0.12); }
+        .card-content { flex-grow: 1; padding: 24px; }
+        .card-footer { padding: 16px 24px; background-color: rgba(0, 0, 0, 0.03); border-top: 1px solid rgba(0,0,0,0.05); margin-top: auto; }
+        .twemoji { width: 3rem; height: 3rem; }
+        /* 図解用スタイル */
+        .attention-box {
+            background-color: #f3f4f6; /* Light gray background */
+            border: 1px solid #d1d5db; /* Gray border */
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+            position: relative;
+        }
+        .highlight {
+            background-color: #fef9c3; /* Yellow highlight */
+            padding: 0 4px;
+            border-radius: 3px;
+            font-weight: bold;
+            position: relative;
+        }
+        .attention-arrow {
+            position: absolute;
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 15px solid #fbbf24; /* Amber color */
+            transform: rotate(180deg);
+        }
+        .speech-bubble {
+            position: relative;
+            background: #a7f3d0; /* Light green */
+            border-radius: .4em;
+            padding: 8px 12px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .speech-bubble:after { /* Triangle for bubble */
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border: 10px solid transparent;
+            border-top-color: #a7f3d0;
+            border-bottom: 0;
+            margin-left: -10px;
+            margin-bottom: -10px;
+        }
+        .example-icon {
+             font-size: 1.5rem;
+             width: 40px;
+             height: 40px;
+             display: inline-flex;
+             align-items: center;
+             justify-content: center;
+             border-radius: 50%;
+             margin-right: 8px;
+         }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="flex justify-between items-center mb-4">
+            <h1 class="text-4xl font-bold text-green-800">生成AIモデル③：Transformer<br>〜言葉を操るコミュニケーションの達人！〜</h1>
+            <div class="float-animation">
+                 <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4ac.svg" alt="Speech balloon emoji" class="w-16 h-16"> </div>
+        </div>
+
+        <div class="flex-grow flex items-center justify-center">
+            <div class="learn-card max-w-4xl w-full"> <div class="card-content">
+                    <div class="flex items-center mb-4">
+                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4dd.svg" alt="Memo emoji" class="twemoji mr-3">
+                        <h2 class="text-2xl font-bold text-green-700">Transformer (トランスフォーマー)</h2>
+                    </div>
+                    <p class="text-gray-800 mb-4">
+                        <span class="font-bold">どんなAI？:</span> まるで人間みたいに、言葉の<span class="text-green-600 font-semibold">「意味」や「文脈（話の流れ）」</span>を理解するのがとっても得意なAIだよ！ その秘密は「アテンション」にあるんだ。
+                    </p>
+
+                    <div class="mt-6 border-t pt-4">
+                        <h3 class="text-lg font-semibold text-center text-gray-700 mb-2">Transformerの得意技！「アテンション」</h3>
+                         <p class="text-sm text-center text-gray-600 mb-4">文の中のどの言葉が大事か、どの言葉と関係が深いかに「注目」する仕組みだよ！</p>
+                        <div class="attention-box mx-auto max-w-lg">
+                            <p class="text-lg mb-6">
+                                公園 で <span id="target-word" class="highlight">猫</span> が ボール を 追いかけて <span id="query-word" class="highlight">いた</span>。 <span class="highlight">それ</span> は とても 速かった。
+                            </p>
+                            <div id="arrow-container" class="relative h-12">
+                                <div class="attention-arrow" style="left: 75%; top: -5px;"></div>
+                                <div class="speech-bubble" style="position: absolute; left: 65%; top: 15px;">
+                                    「それ」って「猫」のことだね！
+                                </div>
+                            </div>
+                             <p class="text-xs text-gray-500 mt-2">(例: 「それ」がどの言葉を指しているか、AIが注目して理解する！)</p>
+                        </div>
+                        <p class="text-sm text-center text-gray-700 mt-4">
+                            この「アテンション」のおかげで、<span class="font-bold">離れた場所にある言葉の関係性</span>も捉えたり、<span class="font-bold">文脈全体を理解</span>したりできるから、長い文章の処理や自然な会話が実現できるんだ！
+                        </p>
+                    </div>
+                    <div class="mt-6 border-t pt-4">
+                         <h3 class="text-lg font-semibold text-center text-gray-700 mb-4">Transformerはこんなところで大活躍！</h3>
+                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                             <div class="flex items-center bg-blue-50 p-3 rounded-lg">
+                                 <span class="example-icon bg-blue-200 text-blue-700"><i class="fas fa-comments"></i></span>
+                                 <div>
+                                     <p class="font-bold text-blue-800">おしゃべりAI (チャットAI)</p>
+                                     <p class="text-xs text-gray-700">人間と自然な会話ができる！ (例: ChatGPT, Gemini)</p>
+                                 </div>
+                             </div>
+                             <div class="flex items-center bg-yellow-50 p-3 rounded-lg">
+                                 <span class="example-icon bg-yellow-200 text-yellow-700"><i class="fas fa-language"></i></span>
+                                 <div>
+                                     <p class="font-bold text-yellow-800">機械翻訳</p>
+                                     <p class="text-xs text-gray-700">外国語の文章を一瞬で翻訳！ (例: Google翻訳, DeepL)</p>
+                                 </div>
+                             </div>
+                              <div class="flex items-center bg-purple-50 p-3 rounded-lg">
+                                 <span class="example-icon bg-purple-200 text-purple-700"><i class="fas fa-pencil-alt"></i></span>
+                                 <div>
+                                     <p class="font-bold text-purple-800">文章作成サポート</p>
+                                     <p class="text-xs text-gray-700">メールやレポート、ブログ記事などをAIが考えてくれる！</p>
+                                 </div>
+                             </div>
+                             <div class="flex items-center bg-red-50 p-3 rounded-lg">
+                                 <span class="example-icon bg-red-200 text-red-700"><i class="fas fa-search"></i></span>
+                                 <div>
+                                     <p class="font-bold text-red-800">質問応答・要約</p>
+                                     <p class="text-xs text-gray-700">知りたいことを聞くと答えたり、長い文章を短くまとめてくれる！</p>
+                                 </div>
+                             </div>
+                              <div class="flex items-center bg-gray-100 p-3 rounded-lg">
+                                 <span class="example-icon bg-gray-300 text-gray-700"><i class="fas fa-code"></i></span>
+                                 <div>
+                                     <p class="font-bold text-gray-800">プログラムコード生成</p>
+                                     <p class="text-xs text-gray-700">作りたい機能を説明すると、プログラムのコードを書いてくれる！</p>
+                                 </div>
+                             </div>
+                         </div>
+                         <p class="text-sm text-center text-gray-700 mt-4 font-semibold">
+                             実は、みんなが普段使っているかもしれない多くのAIサービスが、このTransformerを元に作られているんだ！
+                         </p>
+                    </div>
+
+                </div>
+                 <div class="card-footer">
+                    <p class="text-sm text-gray-600"><i class="fas fa-star mr-1 text-yellow-500"></i><span class="font-bold">Transformerのポイント:</span> 「アテンション」で言葉の繋がりを理解し、文章の読み書きや対話など、幅広い言語タスクで驚くほどの性能を発揮するAI！</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">12 / 20</span>
+        </div>
+    </div>
+    <script>
+        // 簡単なアテンションの視覚化 (矢印の位置調整)
+        // 実際のアテンションはもっと複雑ですが、ここでは例として「それ」から「猫」へ矢印を向けます。
+        // window.onload = function() {
+        //     const queryWord = document.getElementById('query-word');
+        //     const targetWord = document.getElementById('target-word');
+        //     const arrowContainer = document.getElementById('arrow-container');
+        //     const arrow = document.querySelector('.attention-arrow');
+        //     const bubble = document.querySelector('.speech-bubble');
+
+        //     if (queryWord && targetWord && arrow && bubble) {
+        //         const queryRect = queryWord.getBoundingClientRect();
+        //         const targetRect = targetWord.getBoundingClientRect();
+        //         const containerRect = arrowContainer.getBoundingClientRect();
+
+        //         // 「それ」の中心点あたりから矢印を出す
+        //         const arrowLeft = queryRect.left + queryRect.width / 2 - containerRect.left - 10; // 10は矢印の半分の幅
+        //         arrow.style.left = `${arrowLeft}px`;
+        //         arrow.style.top = `-10px`; // ハイライトの上から出るように調整
+
+        //         // 吹き出しの位置調整 (矢印の少し下、ターゲット寄り)
+        //         const bubbleLeft = targetRect.left + targetRect.width / 2 - containerRect.left - bubble.offsetWidth / 2;
+        //         bubble.style.left = `${bubbleLeft}px`;
+        //         bubble.style.top = `15px`; // 矢印の下あたり
+
+        //         // 矢印の回転 (ターゲットの方向を向くように - ここでは単純化)
+        //         // const angle = Math.atan2(targetRect.top - queryRect.bottom, targetRect.left - queryRect.left);
+        //         // arrow.style.transform = `rotate(${angle + Math.PI / 2}rad)`; // 角度調整が必要
+        //     }
+        // }
+        // 注: 上記JavaScriptは簡易的な位置合わせです。正確な描画にはより複雑な計算が必要です。
+        //     今回は静的な配置で概念を示しています。
+    </script>
+</body>
+</html>

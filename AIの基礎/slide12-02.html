@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成AI活用入門 (大学生向け) - 基本的な使い方</title> <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; font-family: 'M PLUS Rounded 1c', sans-serif; background-color: #f0f9ff; overflow: auto; }
+        .slide { width: 1280px; min-height: 720px; margin: 0 auto; position: relative; overflow: auto; background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%); /* Light Blue Gradient */ box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-radius: 12px; padding: 40px; display: flex; flex-direction: column; }
+        .chat-interface { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 100%; }
+        .input-area { display: flex; border: 1px solid #cbd5e1; border-radius: 8px; padding: 5px; }
+        .input-field { border: none; outline: none; flex-grow: 1; padding: 8px; font-size: 0.9rem; }
+        .send-button { background-color: #3b82f6; color: white; border: none; border-radius: 6px; padding: 8px 15px; margin-left: 10px; cursor: pointer; transition: background-color 0.3s; }
+        .send-button:hover { background-color: #2563eb; }
+        .highlight { background-color: #bfdbfe; padding: 2px 5px; border-radius: 3px; font-weight: bold; }
+        .tip-box { background-color: #fef3c7; border-left: 4px solid #fcd34d; padding: 10px 15px; border-radius: 4px; margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-4xl font-bold text-sky-800">どうやって使うの？<br>基本は「チャット」でAIにお願い！</h1> <i class="fas fa-keyboard text-sky-600 text-5xl"></i> </div>
+
+         <div class="flex-grow flex flex-col items-center justify-center">
+            <p class="text-xl text-center text-gray-700 mb-8">
+                文章生成AIの多くは、<span class="highlight text-sky-900">チャット形式</span>で対話しながら使います。<br>
+                AIにやってほしいことを<span class="highlight text-sky-900">具体的な言葉で指示</span>してみましょう。
+            </p>
+
+            <div class="chat-interface mb-8">
+                <p class="text-center text-gray-500 text-sm mb-4">(チャット画面のイメージ)</p>
+                 <div class="bg-gray-50 p-4 rounded-lg mb-4 min-h-[100px]">
+                     {ここにAIからの返信が表示されるエリア}
+                 </div>
+                <div class="input-area">
+                    <input type="text" placeholder="ここにAIへの指示や質問を入力 (例: レポートの構成案を考えて)" class="input-field">
+                    <button class="send-button">
+                        <i class="fas fa-paper-plane"></i> 送信
+                    </button>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md max-w-3xl w-full">
+                <h3 class="text-xl font-bold text-sky-700 mb-3"><i class="fas fa-bullhorn mr-2"></i>AIへの指示 =「プロンプト」</h3>
+                <p class="mb-4">AIに送る指示や質問のことを<span class="font-bold">「プロンプト (Prompt)」</span>と言います。</p>
+                <p class="font-semibold mb-2">例えば、大学生ならこんな風にお願いできます！</p> <ul class="list-disc list-inside space-y-1 text-gray-700">
+                    <li><span class="font-bold">レポート構成案:</span> 「『○○』に関するレポートの構成案を提案して」</li>
+                    <li><span class="font-bold">論文要約:</span> 「この英語論文の要点を日本語でまとめて」</li>
+                    <li><span class="font-bold">アイデア発想:</span> 「卒業研究のテーマになりそうなアイデアをいくつか出して」</li>
+                    <li><span class="font-bold">文章表現の改善:</span> 「この文章をもっとアカデミックな表現にして」</li>
+                    <li><span class="font-bold">プレゼン準備:</span> 「○○についてのプレゼン、導入部分のトークスクリプトを考えて」</li>
+                    <li><span class="font-bold">コード生成/デバッグ:</span> 「Pythonで○○するコードを書いて」「このコードのエラーの原因は？」</li>
+                    <li><span class="font-bold">役割設定:</span> 「あなたは専門分野の教授です。○○について解説してください。」</li>
+                </ul>
+                 <div class="tip-box">
+                     <p class="font-bold text-yellow-800 text-sm"><i class="fas fa-lightbulb mr-1"></i>プロンプトのコツ！ (プロンプトエンジニアリング入門)</p> <p class="text-sm text-yellow-900">AIの能力を引き出すには<span class="font-bold">指示の出し方 (プロンプト) が超重要！</span> 目的、背景、条件、出力形式などを<span class="font-bold">具体的かつ明確に</span>伝えることで、より質の高い回答が期待できます。</p>
+                 </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">14-2 / 20</span>
+        </div>
+    </div>
+</body>
+</html>

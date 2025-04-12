@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIの基礎 (中高生向け) - AIクイズ</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Rounded Mplus 1c', 'M PLUS Rounded 1c', 'Kosugi Maru', sans-serif;
+            background-color: #f0f9ff;
+            overflow: auto;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            margin: 0 auto;
+            position: relative;
+            overflow: auto;
+            background: linear-gradient(135deg, #e0f7fa 0%, #bbdefb 100%);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            padding: 40px;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .float-animation {
+            animation: float 4s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .pulse-animation {
+            animation: pulse 3s ease-in-out infinite;
+        }
+        .quiz-card {
+            border-radius: 16px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            overflow: auto;
+        }
+        .quiz-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+        }
+        .quiz-option {
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .quiz-option:hover {
+            transform: translateX(5px);
+        }
+    </style>
+</head>
+<body>
+    <div class="slide flex flex-col">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-4xl font-bold text-indigo-800">AIクイズに挑戦！</h1>
+            <div class="float-animation">
+                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9e0.svg" alt="Brain emoji" class="w-16 h-16">
+            </div>
+        </div>
+        
+        <!-- Subtitle -->
+        <div class="bg-white bg-opacity-70 rounded-xl p-3 mb-6 max-w-2xl mx-auto text-center">
+            <p class="text-xl text-gray-700">AIについて学んだことを確認してみよう！</p>
+        </div>
+        
+        <!-- Quiz grid -->
+        <div class="grid grid-cols-2 gap-6 mb-6">
+            <!-- Question 1 -->
+            <div class="quiz-card bg-pink-50 p-5">
+                <div class="flex items-center mb-3">
+                    <div class="bg-pink-100 rounded-full p-2 mr-3 flex-shrink-0 w-10 h-10 flex items-center justify-center">
+                        <span class="font-bold text-pink-600">Q1</span>
+                    </div>
+                    <h3 class="font-bold text-gray-800">AIが特定のタスクだけに特化したものは？</h3>
+                </div>
+                <div class="space-y-2 mb-3">
+                    <div class="quiz-option flex items-center bg-white p-3 rounded-lg">
+                        <div class="w-6 h-6 rounded-full border-2 border-gray-300 flex items-center justify-center mr-3">
+                            <span class="text-sm">A</span>
+                        </div>
+                        <p class="text-gray-700">強いAI</p>
+                    </div>
+                    <div class="quiz-option flex items-center bg-white p-3 rounded-lg border-2 border-green-400">
+                        <div class="w-6 h-6 rounded-full bg-green-400 flex items-center justify-center mr-3">
+                            <i class="fas fa-check text-white text-sm"></i>
+                        </div>
+                        <p class="text-gray-700">弱いAI</p>
+                    </div>
+                    <div class="quiz-option flex items-center bg-white p-3 rounded-lg">
+                        <div class="w-6 h-6 rounded-full border-2 border-gray-300 flex items-center justify-center mr-3">
+                            <span class="text-sm">C</span>
+                        </div>
+                        <p class="text-gray-700">量子AI</p>
+                    </div>
+                </div>
+                <div class="bg-green-100 p-3 rounded-lg">
+                    <p class="text-sm text-gray-700">
+                        <span class="font-bold text-green-700">解説：</span>
+                        「弱いAI」は特定のタスク（例：画像認識、チェスゲームなど）に特化したAIで、現在のAIのほとんどはこれに該当します。
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Question 2 -->
+            <div class="quiz-card bg-blue-50 p-5">
+                <div class="flex items-center mb-3">
+                    <div class="bg-blue-100 rounded-full p-2 mr-3 flex-shrink-0 w-10 h-10 flex items-center justify-center">
+                        <span class="font-bold text-blue-600">Q2</span>
+                    </div>
+                    <h3 class="font-bold text-gray-800">ニューラルネットワークの構造で正しいのは？</h3>
+                </div>
+                <div class="space-y-2 mb-3">
+                    <div class="quiz-option flex items-center bg-white p-3 rounded-lg border-2 border-green-400">
+                        <div class="w-6 h-6 rounded-full bg-green-400 flex items-center justify-center mr-3">
+                            <i class="fas fa-check text-white text-sm"></i>
+                        </div>
+                        <p class="text-gray-700">入力層・隠れ層・出力層からなる</p>
+                    </div>
+                    <div class="quiz-option flex items-center bg-white p-3 rounded-lg">
+                        <div class="w-6 h-6 rounded-full border-2 border-gray-300 flex items-center justify-center mr-3">
+                            <span class="text-sm">B</span>
+                        </div>
+                        <p class="text-gray-700">CPUとGPUからなる</p>
+                    </div>
+                    <div class="quiz-option flex items-center bg-white p-3 rounded-lg">
+                        <div class="w-6 h-6 rounded-full border-2 border-gray-300 flex items-center justify-center mr-3">
+                            <span class="text-sm">C</span>
+                        </div>
+                        <p class="text-gray-700">ハードウェアとソフトウェアからなる</p>
+                    </div>
+                </div>
+                <div class="bg-green-100 p-3 rounded-lg">
+                    <p class="text-sm text-gray-700">
+                        <span class="font-bold text-green-700">解説：</span>
+                        ニューラルネットワークは基本的に入力層・隠れ層・出力層という3つの層からなり、それぞれの層にはニューロンが存在します。
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Question 3 -->
+            <div class="quiz-card bg-purple-50 p-5">
+                <div class="flex items-center mb-3">
+                    <div class="bg-purple-100 rounded-full p-2 mr-3 flex-shrink-0 w-10 h-10 flex items-center justify-center">
+                        <span class="font-bold text-purple-600">Q3</span>
+                    </div>
+                    <h3 class="font-bold text-gray-800">生成AIが作り出せるものは？</h3>
+                </div>
+                <div class="space-y-2 mb-3">
+                    <div class="quiz-option flex items-center bg-white p-3 rounded-lg">
+                        <div class="w-6 h-6 rounded-full border-2 border-gray-300 flex items-center justify-center mr-3">
+                            <span class="text-sm">A</span>
+                        </div>
+                        <p class="text-gray-700">テキストと画像</p>
+                    </div>
+                    <div class="quiz-option flex items-center bg-white p-3 rounded-lg">
+                        <div class="w-6 h-6 rounded-full border-2 border-gray-300 flex items-center justify-center mr-3">
+                            <span class="text-sm">B</span>
+                        </div>
+                        <p class="text-gray-700">音楽と動画</p>
+                    </div>
+                    <div class="quiz-option flex items-center bg-white p-3 rounded-lg border-2 border-green-400">
+                        <div class="w-6 h-6 rounded-full bg-green-400 flex items-center justify-center mr-3">
+                            <i class="fas fa-check text-white text-sm"></i>
+                        </div>
+                        <p class="text-gray-700">すべて（テキスト、画像、音楽、動画など）</p>
+                    </div>
+                </div>
+                <div class="bg-green-100 p-3 rounded-lg">
+                    <p class="text-sm text-gray-700">
+                        <span class="font-bold text-green-700">解説：</span>
+                        現代の生成AIは、テキスト、画像、音楽、音声、動画など様々なタイプのコンテンツを生成できます。
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Question 4 -->
+            <div class="quiz-card bg-green-50 p-5">
+                <div class="flex items-center mb-3">
+                    <div class="bg-green-100 rounded-full p-2 mr-3 flex-shrink-0 w-10 h-10 flex items-center justify-center">
+                        <span class="font-bold text-green-600">Q4</span>
+                    </div>
+                    <h3 class="font-bold text-gray-800">AIが抱える課題でないものは？</h3>
+                </div>
+                <div class="space-y-2 mb-3">
+                    <div class="quiz-option flex items-center bg-white p-3 rounded-lg">
+                        <div class="w-6 h-6 rounded-full border-2 border-gray-300 flex items-center justify-center mr-3">
+                            <span class="text-sm">A</span>
+                        </div>
+                        <p class="text-gray-700">バイアス（偏り）問題</p>
+                    </div>
+                    <div class="quiz-option flex items-center bg-white p-3 rounded-lg">
+                        <div class="w-6 h-6 rounded-full border-2 border-gray-300 flex items-center justify-center mr-3">
+                            <span class="text-sm">B</span>
+                        </div>
+                        <p class="text-gray-700">ハルシネーション（幻覚）問題</p>
+                    </div>
+                    <div class="quiz-option flex items-center bg-white p-3 rounded-lg border-2 border-green-400">
+                        <div class="w-6 h-6 rounded-full bg-green-400 flex items-center justify-center mr-3">
+                            <i class="fas fa-check text-white text-sm"></i>
+                        </div>
+                        <p class="text-gray-700">動作が遅すぎる問題</p>
+                    </div>
+                </div>
+                <div class="bg-green-100 p-3 rounded-lg">
+                    <p class="text-sm text-gray-700">
+                        <span class="font-bold text-green-700">解説：</span>
+                        現代のAIは処理速度の問題よりも、バイアス（社会的偏見）やハルシネーション（架空の情報を事実のように答える）などの問題の方が重要な課題です。
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bonus question -->
+        <div class="bg-yellow-50 rounded-xl p-5 mb-4 max-w-4xl mx-auto">
+            <div class="flex items-center mb-3">
+                <div class="bg-yellow-100 rounded-full p-2 mr-3 flex-shrink-0 w-12 h-12 flex items-center justify-center">
+                    <span class="font-bold text-yellow-800 text-lg">ボーナス</span>
+                </div>
+                <h3 class="font-bold text-gray-800 text-lg">AIに関する次の説明で正しいのはどれ？</h3>
+            </div>
+            <div class="grid grid-cols-2 gap-4 mb-3">
+                <div class="quiz-option flex items-center bg-white p-3 rounded-lg">
+                    <div class="w-6 h-6 rounded-full border-2 border-gray-300 flex items-center justify-center mr-3">
+                        <span class="text-sm">A</span>
+                    </div>
+                    <p class="text-gray-700">AIは人間のように自分で考えることができる</p>
+                </div>
+                <div class="quiz-option flex items-center bg-white p-3 rounded-lg border-2 border-green-400">
+                    <div class="w-6 h-6 rounded-full bg-green-400 flex items-center justify-center mr-3">
+                        <i class="fas fa-check text-white text-sm"></i>
+                    </div>
+                    <p class="text-gray-700">AIはデータから学習したパターンを組み合わせている</p>
+                </div>
+                <div class="quiz-option flex items-center bg-white p-3 rounded-lg">
+                    <div class="w-6 h-6 rounded-full border-2 border-gray-300 flex items-center justify-center mr-3">
+                        <span class="text-sm">C</span>
+                    </div>
+                    <p class="text-gray-700">AIの発展によりすべての仕事がなくなる</p>
+                </div>
+                <div class="quiz-option flex items-center bg-white p-3 rounded-lg">
+                    <div class="w-6 h-6 rounded-full border-2 border-gray-300 flex items-center justify-center mr-3">
+                        <span class="text-sm">D</span>
+                    </div>
+                    <p class="text-gray-700">AIの答えは常に100%正しい</p>
+                </div>
+            </div>
+            <div class="bg-green-100 p-3 rounded-lg">
+                <p class="text-sm text-gray-700">
+                    <span class="font-bold text-green-700">解説：</span>
+                    AIは自分で「考える」能力はなく、大量のデータから学習したパターンを組み合わせて出力しています。そのため、時には間違った情報を生成することもあります。
+                </p>
+            </div>
+        </div>
+        
+        <!-- Message to students -->
+        <div class="bg-indigo-50 rounded-xl p-4 max-w-3xl mx-auto">
+            <div class="flex items-center">
+                <div class="bg-indigo-100 rounded-full p-2 mr-3 flex-shrink-0">
+                    <i class="fas fa-trophy text-indigo-600"></i>
+                </div>
+                <div>
+                    <h4 class="font-bold text-indigo-800 mb-1">おめでとう！</h4>
+                    <p class="text-gray-700">これでAIの基礎知識をマスターしました！次のスライドでは、全体のまとめを見ていきましょう。</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Page number -->
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">19 / 20</span>
+        </div>
+    </div>
+</body>
+</html>

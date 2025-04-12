@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIの基礎 (中高生向け) - ニューラルネットワークの仕組み</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Rounded Mplus 1c', 'M PLUS Rounded 1c', 'Kosugi Maru', sans-serif;
+            background-color: #f0f9ff;
+            overflow: auto;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            margin: 0 auto;
+            position: relative;
+            overflow: auto;
+            background: linear-gradient(135deg, #e0f7fa 0%, #bbdefb 100%);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            padding: 40px;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .float-animation {
+            animation: float 4s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .pulse-animation {
+            animation: pulse 3s ease-in-out infinite;
+        }
+        .process-card {
+            border-radius: 16px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+        .process-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+        }
+        .process-arrow {
+            position: relative;
+        }
+        .process-arrow:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -30px;
+            width: 0;
+            height: 0;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            border-left: 20px solid #e2e8f0;
+            transform: translateY(-50%);
+        }
+    </style>
+</head>
+<body>
+    <div class="slide flex flex-col">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-4xl font-bold text-indigo-800">ニューラルネットワークの仕組み</h1>
+            <div class="float-animation">
+                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9ee.svg" alt="Magnet emoji" class="w-16 h-16">
+            </div>
+        </div>
+        
+        <!-- Subtitle -->
+        <div class="bg-white bg-opacity-70 rounded-xl p-3 mb-6 max-w-2xl mx-auto text-center">
+            <p class="text-xl text-gray-700">たとえば「ネコの写真を見分ける」ニューラルネットワークは...</p>
+        </div>
+        
+        <!-- Main content - Neural Network Process -->
+        <div class="flex justify-between items-center mb-8">
+            <!-- Input -->
+            <div class="process-arrow w-1/4">
+                <div class="process-card bg-blue-50 p-4 text-center pulse-animation">
+                    <div class="mb-3 flex justify-center">
+                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4f7.svg" alt="Camera emoji" class="w-16 h-16">
+                    </div>
+                    <h3 class="text-lg font-bold text-blue-700 mb-2">①入力</h3>
+                    <div class="bg-white rounded-lg p-2">
+                        <p class="text-gray-700 text-sm">写真をデータとして入力する</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Processing -->
+            <div class="process-arrow w-1/4">
+                <div class="process-card bg-purple-50 p-4 text-center pulse-animation">
+                    <div class="mb-3 flex justify-center">
+                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9e0.svg" alt="Brain emoji" class="w-16 h-16">
+                    </div>
+                    <h3 class="text-lg font-bold text-purple-700 mb-2">②計算処理</h3>
+                    <div class="bg-white rounded-lg p-2">
+                        <p class="text-gray-700 text-sm">複数の層でデータを分析する</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Feature Detection -->
+            <div class="process-arrow w-1/4">
+                <div class="process-card bg-teal-50 p-4 text-center pulse-animation">
+                    <div class="mb-3 flex justify-center">
+                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f50d.svg" alt="Magnifying glass emoji" class="w-16 h-16">
+                    </div>
+                    <h3 class="text-lg font-bold text-teal-700 mb-2">③特徴検出</h3>
+                    <div class="bg-white rounded-lg p-2">
+                        <p class="text-gray-700 text-sm">ネコの特徴（耳、ひげなど）を見つける</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Output -->
+            <div class="w-1/4">
+                <div class="process-card bg-pink-50 p-4 text-center pulse-animation">
+                    <div class="mb-3 flex justify-center">
+                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f431.svg" alt="Cat emoji" class="w-16 h-16">
+                    </div>
+                    <h3 class="text-lg font-bold text-pink-700 mb-2">④出力</h3>
+                    <div class="bg-white rounded-lg p-2">
+                        <p class="text-gray-700 text-sm">「これはネコです」と判断！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Feature detection example -->
+        <div class="bg-white bg-opacity-80 rounded-xl p-5 mb-6">
+            <h3 class="text-xl font-bold text-indigo-800 text-center mb-4">ニューラルネットワークが見つける特徴</h3>
+            <div class="flex justify-around">
+                <!-- Level 1 features -->
+                <div class="text-center">
+                    <div class="bg-blue-100 rounded-lg p-3 mb-2 w-32 h-32 flex items-center justify-center mx-auto">
+                        <div class="relative">
+                            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f431.svg" alt="Cat emoji" class="w-20 h-20 opacity-25">
+                            <div class="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center">
+                                <i class="fas fa-square text-blue-700 text-2xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <h4 class="font-bold text-blue-700">層1：単純な線や点</h4>
+                    <p class="text-xs text-gray-700">輪郭や色の変化を検出</p>
+                </div>
+                
+                <!-- Level 2 features -->
+                <div class="text-center">
+                    <div class="bg-purple-100 rounded-lg p-3 mb-2 w-32 h-32 flex items-center justify-center mx-auto">
+                        <div class="relative">
+                            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f431.svg" alt="Cat emoji" class="w-20 h-20 opacity-25">
+                            <div class="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center">
+                                <i class="fas fa-circle text-purple-700 text-2xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <h4 class="font-bold text-purple-700">層2：形や模様</h4>
+                    <p class="text-xs text-gray-700">丸い目や三角の耳を検出</p>
+                </div>
+                
+                <!-- Level 3 features -->
+                <div class="text-center">
+                    <div class="bg-teal-100 rounded-lg p-3 mb-2 w-32 h-32 flex items-center justify-center mx-auto">
+                        <div class="relative">
+                            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f431.svg" alt="Cat emoji" class="w-20 h-20 opacity-25">
+                            <div class="absolute top-8 left-0 right-0 flex justify-center">
+                                <i class="fas fa-paw text-teal-700 text-2xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <h4 class="font-bold text-teal-700">層3：部分的特徴</h4>
+                    <p class="text-xs text-gray-700">目や耳、ひげなどを検出</p>
+                </div>
+                
+                <!-- Level 4 features -->
+                <div class="text-center">
+                    <div class="bg-pink-100 rounded-lg p-3 mb-2 w-32 h-32 flex items-center justify-center mx-auto">
+                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f431.svg" alt="Cat emoji" class="w-20 h-20">
+                    </div>
+                    <h4 class="font-bold text-pink-700">層4：全体の特徴</h4>
+                    <p class="text-xs text-gray-700">「これはネコだ！」と認識</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Fun fact -->
+        <div class="bg-yellow-50 rounded-xl p-4 max-w-2xl mx-auto">
+            <div class="flex items-center">
+                <div class="bg-yellow-100 rounded-full p-2 mr-3 flex-shrink-0">
+                    <i class="fas fa-lightbulb text-yellow-600"></i>
+                </div>
+                <p class="text-gray-700">人間の脳も似たような仕組みで物を認識しています。ニューラルネットワークは脳の仕組みをヒントに作られたんですよ！</p>
+            </div>
+        </div>
+        
+        <!-- Page number -->
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">8 / 20</span>
+        </div>
+    </div>
+</body>
+</html>
